@@ -39,13 +39,31 @@
 - Peso: média móvel de 7 dias, linha da meta, ritmo atual (regressão das últimas 4 semanas) e previsão da data da meta
 - Relação cintura/altura e variação de cada medida desde a primeira medição
 
+## Versão 2.3 — etapa 4 (02/10/2026)
+- Histórico: ver todas as séries de cada treino e **editar treino salvo** (data, duração, nome, observação, séries, exercícios)
+- **Superséries**: menu ⋯ → "Supersérie com o próximo"; descanso só depois do último exercício do grupo; fica salva no plano (e no editor de planos)
+- **RIR opcional** (Perfil → Registrar RIR): após cada série, anotar reps na reserva; RIR 3+ em todas dobra o salto de carga sugerido
+- **Programas**: ciclo de N semanas com deload a cada 4ª/5ª/6ª semana (metade das séries, carga −10% ou os dois); treinos de deload não servem de base para a progressão
+- **Fotos de progresso** (frente/lado/costas) no IndexedDB do aparelho, comparação lado a lado; backup pode incluir as fotos
+- **kg/lb** (Perfil): tudo continua guardado em kg; a tela converte; passos de 5 lb
+- **Modo claro** (Perfil → Aparência: escura, clara ou automática); padrão continua escuro
+- **Apple Saúde via Atalhos** (Perfil): ao registrar o peso de hoje, abre o atalho "GymTrack Peso"
+
+### Atalho "GymTrack Peso" (uma vez, no app Atalhos)
+1. + → nome **GymTrack Peso** (exatamente assim)
+2. Ação **Obter Números da Entrada**
+3. Ação **Registrar Amostra de Saúde**: Tipo Peso, Valor = Números, unidade kg
+4. No GymTrack: Perfil → ligar "Enviar peso ao Saúde" → Salvar → Testar (o iPhone pede permissão na 1ª vez)
+Limitação: app web não acessa o HealthKit; treinos não vão para o Saúde (o Atalhos não tem ação estável para registrar treino de musculação).
+
 ## Compatibilidade
 Usa as mesmas chaves de armazenamento da versão anterior (`gymtrack_*_v1`).
 Publicada no mesmo endereço (domínio da Adapta), lê os dados existentes sem precisar migrar.
 Em outro endereço, os dados antigos não aparecem: exporte o backup lá e importe no novo.
 
-## Próximas etapas
-4. Restante da lista (fotos de progresso, superséries, RPE/RIR, editar treino salvo, programas com semanas, modo claro, kg/lb, Apple Saúde...)
+## Próximas ideias (fora das 4 etapas)
+- App nativo (Swift/Capacitor) para integração real com Apple Saúde e Apple Watch
+- Sincronização entre aparelhos (hoje os dados ficam só no iPhone + backup)
 
 ## Publicação
 - Endereço: https://mausan2013-dotcom.github.io/gymtrack/

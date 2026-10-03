@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>GymTrack</title>
   <meta name="description" content="Controle de treinos, recordes e medidas corporais.">
-  <meta name="theme-color" content="#090d16">
-  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#090d16" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f2f4f8" media="(prefers-color-scheme: light)">
+  <meta name="color-scheme" content="dark light">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -31,7 +32,94 @@
       --text-muted: #94a3b8;
       --radius: 16px;
       --safe-bottom: env(safe-area-inset-bottom, 16px);
+      --text-strong: #ffffff;
+      --hairline: var(--hairline);
+      --inset: var(--inset);
+      --track: #1e293b;
+      --nav-bg: rgba(15, 23, 42, 0.94);
+      --topbar-bg: rgba(9, 13, 22, 0.95);
+      --hero-bg: linear-gradient(145deg, #182642, #101a2e);
+      --hero-border: #2d3e64;
+      --panel-bg: linear-gradient(135deg, #162035 0%, #111a2c 100%);
+      --panel-border: #273756;
+      --trained-bg: #064e3b;
+      --tip-bg: #0b1220;
+      --accent-text: #34d399;
+      --sky-text: #38bdf8;
+      --blue-text: #60a5fa;
+      --red-text: #f87171;
+      --amber-text: #fbbf24;
+      --amber-strong: #f59e0b;
+      --purple-text: #c084fc;
+      --pink-text: #f472b6;
+      --chart-grid: #1e293b;
+      --shadow-strong: 0 10px 24px rgba(0,0,0,0.3);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --bg: #f2f4f8;
+      --surface: #ffffff;
+      --surface-elevated: #eef1f6;
+      --border: #d8dee8;
+      --text: #111827;
+      --text-muted: #556070;
+      --text-strong: #0b1220;
+      --hairline: rgba(15, 23, 42, 0.08);
+      --inset: rgba(15, 23, 42, 0.04);
+      --track: #e2e8f0;
+      --nav-bg: rgba(255, 255, 255, 0.94);
+      --topbar-bg: rgba(242, 244, 248, 0.95);
+      --hero-bg: linear-gradient(145deg, #e6f6ef, #f5f9fc);
+      --hero-border: #c9e8da;
+      --panel-bg: linear-gradient(135deg, #ffffff 0%, #f4f7fb 100%);
+      --panel-border: #d8dee8;
+      --trained-bg: #d1fae5;
+      --tip-bg: #ffffff;
+      --accent-text: #047857;
+      --sky-text: #0369a1;
+      --blue-text: #1d4ed8;
+      --red-text: #b91c1c;
+      --amber-text: #b45309;
+      --amber-strong: #b45309;
+      --purple-text: #7e22ce;
+      --pink-text: #be185d;
+      --chart-grid: #e2e8f0;
+      --shadow-strong: 0 6px 18px rgba(15, 23, 42, 0.08);
+    }
+    @media (prefers-color-scheme: light) {
+      :root[data-theme="auto"] {
+        color-scheme: light;
+      --bg: #f2f4f8;
+      --surface: #ffffff;
+      --surface-elevated: #eef1f6;
+      --border: #d8dee8;
+      --text: #111827;
+      --text-muted: #556070;
+      --text-strong: #0b1220;
+      --hairline: rgba(15, 23, 42, 0.08);
+      --inset: rgba(15, 23, 42, 0.04);
+      --track: #e2e8f0;
+      --nav-bg: rgba(255, 255, 255, 0.94);
+      --topbar-bg: rgba(242, 244, 248, 0.95);
+      --hero-bg: linear-gradient(145deg, #e6f6ef, #f5f9fc);
+      --hero-border: #c9e8da;
+      --panel-bg: linear-gradient(135deg, #ffffff 0%, #f4f7fb 100%);
+      --panel-border: #d8dee8;
+      --trained-bg: #d1fae5;
+      --tip-bg: #ffffff;
+      --accent-text: #047857;
+      --sky-text: #0369a1;
+      --blue-text: #1d4ed8;
+      --red-text: #b91c1c;
+      --amber-text: #b45309;
+      --amber-strong: #b45309;
+      --purple-text: #7e22ce;
+      --pink-text: #be185d;
+      --chart-grid: #e2e8f0;
+      --shadow-strong: 0 6px 18px rgba(15, 23, 42, 0.08);
+      }
     }
 
     * {
@@ -78,7 +166,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
+      color: var(--text-strong);
       font-weight: 800;
       font-size: 20px;
       box-shadow: 0 4px 12px var(--accent-glow);
@@ -138,14 +226,14 @@
 
     /* Hero Start Workout Card */
     .hero-workout-card {
-      background: linear-gradient(145deg, #182642, #101a2e);
-      border: 1px solid #2d3e64;
+      background: var(--hero-bg);
+      border: 1px solid var(--hero-border);
       border-radius: 20px;
       padding: 20px;
       margin-bottom: 20px;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.3);
+      box-shadow: var(--shadow-strong);
     }
     .hero-workout-card::after {
       content: '';
@@ -162,7 +250,7 @@
       align-items: center;
       gap: 6px;
       background: rgba(16, 185, 129, 0.15);
-      color: #34d399;
+      color: var(--accent-text);
       font-size: 0.75rem;
       font-weight: 700;
       padding: 4px 10px;
@@ -174,7 +262,7 @@
       font-size: 1.35rem;
       font-weight: 800;
       margin: 0 0 6px 0;
-      color: #fff;
+      color: var(--text-strong);
     }
     .today-plan-subtitle {
       font-size: 0.85rem;
@@ -225,7 +313,7 @@
     }
     .btn-danger {
       background: rgba(239, 68, 68, 0.12);
-      color: #f87171;
+      color: var(--red-text);
       border: 1px solid rgba(239, 68, 68, 0.35);
       padding: 12px 16px;
       border-radius: 12px;
@@ -246,8 +334,8 @@
 
     /* Target Weight Bar */
     .target-card {
-      background: linear-gradient(135deg, #162035 0%, #111a2c 100%);
-      border: 1px solid #273756;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
       border-radius: 16px;
       padding: 18px;
       margin-bottom: 20px;
@@ -261,11 +349,11 @@
     .target-title {
       font-size: 0.9rem;
       font-weight: 700;
-      color: #94a3b8;
+      color: var(--text-muted);
     }
     .target-badge {
       background: rgba(59, 130, 246, 0.2);
-      color: #60a5fa;
+      color: var(--blue-text);
       padding: 4px 8px;
       border-radius: 6px;
       font-size: 0.75rem;
@@ -280,14 +368,14 @@
     .current-val {
       font-size: 1.8rem;
       font-weight: 800;
-      color: #fff;
+      color: var(--text-strong);
     }
     .target-val {
       font-size: 0.9rem;
       color: var(--text-muted);
     }
     .target-progress-bg {
-      background: #1e293b;
+      background: var(--track);
       height: 12px;
       border-radius: 6px;
       overflow: hidden;
@@ -313,10 +401,10 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(15, 23, 42, 0.94);
+      background: var(--nav-bg);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-top: 1px solid #1e293b;
+      border-top: 1px solid var(--border);
       display: flex;
       justify-content: space-around;
       padding: 8px 8px calc(8px + var(--safe-bottom));
@@ -382,15 +470,15 @@
       padding: 2px 8px;
       border-radius: 4px;
       background: rgba(59, 130, 246, 0.15);
-      color: #60a5fa;
+      color: var(--blue-text);
       text-transform: uppercase;
       margin-top: 4px;
     }
-    .tag-muscle.peito { background: rgba(239, 68, 68, 0.15); color: #f87171; }
-    .tag-muscle.costas { background: rgba(16, 185, 129, 0.15); color: #34d399; }
-    .tag-muscle.pernas { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
-    .tag-muscle.ombros { background: rgba(168, 85, 247, 0.15); color: #c084fc; }
-    .tag-muscle.bracos { background: rgba(236, 72, 153, 0.15); color: #f472b6; }
+    .tag-muscle.peito { background: rgba(239, 68, 68, 0.15); color: var(--red-text); }
+    .tag-muscle.costas { background: rgba(16, 185, 129, 0.15); color: var(--accent-text); }
+    .tag-muscle.pernas { background: rgba(245, 158, 11, 0.15); color: var(--amber-text); }
+    .tag-muscle.ombros { background: rgba(168, 85, 247, 0.15); color: var(--purple-text); }
+    .tag-muscle.bracos { background: rgba(236, 72, 153, 0.15); color: var(--pink-text); }
 
     /* Active Workout Overlay / Modal */
     .active-workout-view {
@@ -413,7 +501,7 @@
     .active-topbar {
       position: sticky;
       top: 0;
-      background: rgba(9, 13, 22, 0.95);
+      background: var(--topbar-bg);
       backdrop-filter: blur(15px);
       -webkit-backdrop-filter: blur(15px);
       padding: max(12px, env(safe-area-inset-top)) 16px 12px;
@@ -437,7 +525,7 @@
       gap: 8px;
       align-items: center;
       padding: 8px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid var(--hairline);
     }
     .set-row.completed {
       opacity: 0.6;
@@ -479,7 +567,7 @@
       width: 100%;
       background: transparent;
       border: none;
-      color: #fff;
+      color: var(--text-strong);
       font-weight: 700;
       font-size: 0.95rem;
       text-align: center;
@@ -514,8 +602,8 @@
       right: 16px;
       max-width: 488px;
       margin: 0 auto;
-      background: #1e293b;
-      border: 1px solid #334155;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       border-radius: 16px;
       padding: 12px 16px;
@@ -536,7 +624,7 @@
       font-size: 1.4rem;
       font-weight: 800;
       font-family: monospace;
-      color: #38bdf8;
+      color: var(--sky-text);
     }
 
     /* PR Alert Celebration */
@@ -591,11 +679,11 @@
     }
     .cal-day.today {
       border: 1px solid var(--blue);
-      color: #fff;
+      color: var(--text-strong);
     }
     .cal-day.trained {
-      background: #064e3b;
-      color: #34d399;
+      background: var(--trained-bg);
+      color: var(--accent-text);
       font-weight: 800;
       border: 1px solid #10b981;
     }
@@ -621,7 +709,7 @@
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 12px 14px;
-      color: #fff;
+      color: var(--text-strong);
       font-size: 0.95rem;
       outline: none;
     }
@@ -689,9 +777,9 @@
       font-weight: 700;
       border-radius: 6px;
     }
-    .badge-accent { background: rgba(16, 185, 129, 0.15); color: #34d399; }
-    .badge-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
-    .badge-amber { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+    .badge-accent { background: rgba(16, 185, 129, 0.15); color: var(--accent-text); }
+    .badge-blue { background: rgba(59, 130, 246, 0.15); color: var(--blue-text); }
+    .badge-amber { background: rgba(245, 158, 11, 0.15); color: var(--amber-text); }
 
     /* Confetti animation */
     .confetti-piece {
@@ -751,35 +839,35 @@
     .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 6px 0 14px; }
     .summary-grid .kpi-item { text-align: center; }
     .summary-grid .value { font-size: 1.15rem; }
-    .pr-line { display: flex; justify-content: space-between; font-size: 0.85rem; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-    .pr-line strong { color: #fbbf24; }
+    .pr-line { display: flex; justify-content: space-between; font-size: 0.85rem; padding: 4px 0; border-bottom: 1px solid var(--hairline); }
+    .pr-line strong { color: var(--amber-text); }
 
     .empty-state { text-align: center; padding: 28px 16px; color: var(--text-muted); font-size: 0.88rem; }
     .empty-state .empty-icon { font-size: 2rem; margin-bottom: 6px; }
     .set-row.skipped { opacity: 0.55; }
 
     /* ---------- Etapa 2: treino em andamento ---------- */
-    .tag-muscle.abdomen { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
-    .tag-muscle.geral { background: rgba(148, 163, 184, 0.15); color: #94a3b8; }
+    .tag-muscle.abdomen { background: rgba(56, 189, 248, 0.15); color: var(--sky-text); }
+    .tag-muscle.geral { background: rgba(148, 163, 184, 0.15); color: var(--text-muted); }
     .tag-type { display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-left: 4px; background: rgba(148,163,184,0.15); color: var(--text-muted); }
     .active-ex-card { padding: 14px; margin-bottom: 14px; }
     .active-ex-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
     .active-ex-name { font-size: 1.05rem; font-weight: 800; margin: 4px 0 2px; }
     .ex-hint { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
-    .ex-hint.prev { color: #38bdf8; }
-    .ex-note { font-size: 0.75rem; color: #fbbf24; margin-top: 4px; }
+    .ex-hint.prev { color: var(--sky-text); }
+    .ex-note { font-size: 0.75rem; color: var(--amber-text); margin-top: 4px; }
     .suggestion {
       display: flex; align-items: center; justify-content: space-between; gap: 10px;
       font-size: 0.78rem; line-height: 1.35; border-radius: 10px; padding: 8px 10px; margin-bottom: 10px;
     }
     .suggestion.up { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #a7f3d0; }
     .suggestion.hold { background: rgba(148, 163, 184, 0.08); border: 1px solid var(--border); color: var(--text-muted); }
-    .suggestion strong { color: #fff; }
+    .suggestion strong { color: var(--text-strong); }
     .suggestion button {
       flex: 0 0 auto; background: var(--accent); color: #042517; border: none; border-radius: 8px;
       font-weight: 800; font-size: 0.78rem; padding: 7px 12px; cursor: pointer;
     }
-    .sug-ok { flex: 0 0 auto; color: #34d399; font-weight: 700; }
+    .sug-ok { flex: 0 0 auto; color: var(--accent-text); font-weight: 700; }
     .set-head {
       display: grid; grid-template-columns: 36px 1fr 1fr 44px; gap: 8px;
       font-size: 0.66rem; color: var(--text-muted); font-weight: 700; text-align: center; margin-bottom: 4px;
@@ -791,12 +879,12 @@
       height: 42px; width: 36px; border-radius: 10px; border: 1px solid transparent;
       background: transparent; font-family: inherit; cursor: pointer; padding: 0;
     }
-    .set-num.kind-aquecimento { color: #fbbf24; background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.35); }
-    .set-num.kind-drop { color: #c084fc; background: rgba(168, 85, 247, 0.12); border-color: rgba(168, 85, 247, 0.35); }
-    .set-num.kind-falha { color: #f87171; background: rgba(239, 68, 68, 0.12); border-color: rgba(239, 68, 68, 0.35); }
+    .set-num.kind-aquecimento { color: var(--amber-text); background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.35); }
+    .set-num.kind-drop { color: var(--purple-text); background: rgba(168, 85, 247, 0.12); border-color: rgba(168, 85, 247, 0.35); }
+    .set-num.kind-falha { color: var(--red-text); background: rgba(239, 68, 68, 0.12); border-color: rgba(239, 68, 68, 0.35); }
     .kind-hint { font-size: 0.72rem; color: var(--text-muted); margin: -4px 0 14px; line-height: 1.45; }
     .kind-hint b { padding: 0 4px; border-radius: 4px; }
-    .k-a { color: #fbbf24; } .k-d { color: #c084fc; } .k-f { color: #f87171; }
+    .k-a { color: var(--amber-text); } .k-d { color: var(--purple-text); } .k-f { color: var(--red-text); }
     .active-ex-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
     .active-ex-foot .btn-secondary { padding: 7px 12px; font-size: 0.78rem; }
     .rest-info { background: none; border: none; color: var(--text-muted); font-size: 0.78rem; font-weight: 600; cursor: pointer; padding: 6px 0; font-family: inherit; }
@@ -812,9 +900,9 @@
     .active-topbar #activeWorkoutTitle { font-size: 1rem !important; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     .create-box { background: rgba(16, 185, 129, 0.06); border: 1px dashed rgba(16, 185, 129, 0.4); border-radius: 12px; padding: 12px; margin-top: 12px; }
 
-    .plan-ex-row { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; padding: 10px; }
+    .plan-ex-row { background: var(--hairline); border: 1px solid var(--border); border-radius: 12px; padding: 10px; }
     .plan-ex-line { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
-    .row-remove { background: none; border: none; color: #f87171; font-size: 1.4rem; font-weight: 700; cursor: pointer; padding: 0 6px; }
+    .row-remove { background: none; border: none; color: var(--red-text); font-size: 1.4rem; font-weight: 700; cursor: pointer; padding: 0 6px; }
     .plan-ex-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .plan-ex-grid label { font-size: 0.68rem; font-weight: 700; color: var(--text-muted); display: flex; flex-direction: column; gap: 4px; }
     .plan-ex-grid .form-control { padding: 9px 8px; }
@@ -844,7 +932,7 @@
     .svg-chart { width: 100%; height: auto; display: block; overflow: visible; touch-action: pan-y; -webkit-user-select: none; user-select: none; }
     .chart-tip {
       position: absolute; top: -6px; pointer-events: none; z-index: 5;
-      background: #0b1220; border: 1px solid var(--border); border-radius: 8px; padding: 6px 9px;
+      background: var(--tip-bg); border: 1px solid var(--border); border-radius: 8px; padding: 6px 9px;
       font-size: 0.72rem; color: var(--text-muted); line-height: 1.4; white-space: nowrap; box-shadow: 0 6px 16px rgba(0,0,0,0.4);
     }
     .chart-tip strong { color: var(--text); font-size: 0.8rem; }
@@ -870,6 +958,71 @@
     .delta-item .label { font-size: 0.68rem; color: var(--text-muted); font-weight: 700; }
     .delta-item .value { font-size: 1rem; font-weight: 800; margin-top: 2px; }
     .delta-item .sub { font-size: 0.66rem; color: var(--text-muted); }
+
+    /* ---------- Etapa 4 ---------- */
+    .hist-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
+    .hist-meta { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
+    .hist-title { font-size: 1.05rem; font-weight: 800; margin: 2px 0; }
+    .hist-actions { display: flex; gap: 6px; flex: 0 0 auto; }
+    .hist-actions .btn-secondary { padding: 5px 9px; font-size: 0.72rem; }
+    .hist-body { border-top: 1px solid var(--hairline); padding-top: 6px; }
+    .hist-ex { padding: 3px 0; }
+    .hist-ex-line { display: flex; justify-content: space-between; gap: 8px; font-size: 0.84rem; }
+    .hist-ex-line small { color: var(--text-muted); }
+    .hist-sets { display: flex; flex-wrap: wrap; gap: 4px; margin: 4px 0 6px; }
+    .hist-set { font-size: 0.72rem; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 2px 6px; color: var(--text); }
+    .hist-set b { color: var(--text-muted); }
+    .hist-set.k-aquecimento b { color: var(--amber-text); } .hist-set.k-drop b { color: var(--purple-text); } .hist-set.k-falha b { color: var(--red-text); }
+    .hist-set i { font-style: normal; color: var(--text-muted); }
+    .hist-note { font-size: 0.78rem; color: var(--amber-text); margin-top: 6px; }
+    .hist-toggle { background: none; border: none; color: var(--accent-text); font-size: 0.76rem; font-weight: 700; padding: 8px 0 0; cursor: pointer; font-family: inherit; }
+    .cardio-badge { margin-top: 8px; font-size: 0.78rem; background: rgba(59, 130, 246, 0.15); color: var(--blue-text); padding: 4px 8px; border-radius: 6px; display: inline-flex; gap: 4px; }
+    .txt-blue { color: var(--blue-text); } .txt-red { color: var(--red-text) !important; }
+
+    .ew-ex { border: 1px solid var(--border); border-radius: 12px; padding: 10px; margin-bottom: 10px; }
+    .ew-ex-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .ew-set { display: grid; grid-template-columns: 58px 1fr 1fr 30px; gap: 6px; align-items: center; margin-bottom: 6px; }
+    .ew-set.single { grid-template-columns: 58px 1fr 30px; }
+    .ew-set .form-control { padding: 8px; }
+    .ew-set-head { font-size: 0.64rem; font-weight: 700; color: var(--text-muted); margin-bottom: 2px; }
+    .ew-add { padding: 6px 12px; font-size: 0.76rem; }
+    .ew-add-ex { display: flex; gap: 8px; }
+
+    .active-ex-card.in-superset { border-left: 3px solid #a855f7; }
+    .active-ex-card.in-superset:not(.ss-last) { margin-bottom: 4px; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; }
+    .active-ex-card.in-superset:not(.ss-first) { border-top-left-radius: 6px; border-top-right-radius: 6px; }
+    .tag-ss { display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-left: 4px; background: rgba(168, 85, 247, 0.15); color: var(--purple-text); }
+    .ss-check { grid-column: span 3; flex-direction: row !important; align-items: center; gap: 8px !important; font-size: 0.75rem !important; }
+    .rir-row { display: flex; align-items: center; gap: 6px; padding: 4px 0 8px 44px; font-size: 0.72rem; color: var(--text-muted); flex-wrap: wrap; }
+    .rir-row button { min-width: 34px; height: 30px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-elevated); color: var(--text); font-weight: 700; cursor: pointer; font-family: inherit; }
+    .rir-row button.active { background: var(--accent); color: #042517; border-color: var(--accent); }
+    .rir-tag { background: none; border: none; color: var(--text-muted); font-size: 0.7rem; font-weight: 700; padding: 0 0 6px 44px; cursor: pointer; font-family: inherit; display: block; }
+    .toggle-line { display: flex; gap: 10px; align-items: flex-start; font-size: 0.78rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 14px; cursor: pointer; }
+    .toggle-line input { width: 20px; height: 20px; flex: 0 0 auto; margin-top: 1px; accent-color: var(--accent); }
+    .toggle-line strong { color: var(--text); }
+    .app-toast {
+      position: fixed; left: 50%; top: calc(90px + env(safe-area-inset-top)); transform: translate(-50%, -12px); opacity: 0;
+      background: var(--surface-elevated); border: 1px solid var(--border); color: var(--text); font-size: 0.85rem; font-weight: 700;
+      padding: 10px 16px; border-radius: 12px; z-index: 2100; pointer-events: none; transition: all 0.2s ease; max-width: calc(100vw - 32px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+    }
+    .app-toast.show { opacity: 1; transform: translate(-50%, 0); }
+    .program-card { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .program-card .btn-secondary { padding: 8px 14px; font-size: 0.8rem; flex: 0 0 auto; }
+    .program-badge { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin: -4px 0 8px; }
+    .program-badge.deload { color: var(--amber-text); }
+    .small-btn { padding: 7px 12px; font-size: 0.78rem; }
+    .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .photo-thumb { position: relative; padding: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; aspect-ratio: 3 / 4; background: var(--bg); cursor: pointer; }
+    .photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .photo-thumb span { position: absolute; left: 0; right: 0; bottom: 0; font-size: 0.64rem; font-weight: 700; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,0.7)); padding: 12px 6px 4px; text-align: left; }
+    .photo-preview { width: 100%; max-height: 40vh; object-fit: contain; border-radius: 10px; background: var(--bg); }
+    .photo-full { width: 100%; max-height: 62vh; object-fit: contain; border-radius: 10px; background: var(--bg); }
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .compare-grid img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 10px; margin-top: 6px; background: var(--bg); }
+    .compare-grid .form-control { padding: 8px; font-size: 14px; }
+    .steps { padding-left: 18px; margin: 8px 0 10px; }
+    .steps li { margin-bottom: 6px; }
   </style>
 </head>
 <body>
@@ -885,13 +1038,13 @@
     <div style="display: flex; align-items: center; gap: 10px;">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
       <div>
-        <div style="font-size: 0.72rem; color: #94a3b8; font-weight: 600;">DESCANSO</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600;">DESCANSO</div>
         <div class="timer-digits" id="timerDisplay">01:30</div>
       </div>
     </div>
     <div style="display: flex; gap: 6px;">
       <button type="button" class="btn-secondary" style="padding: 8px 12px; font-size: 0.75rem;" onclick="addTimerSeconds(30)">+30s</button>
-      <button type="button" class="btn-secondary" style="padding: 8px 12px; font-size: 0.75rem; color: #f87171;" onclick="cancelRestTimer()">Pular</button>
+      <button type="button" class="btn-secondary" style="padding: 8px 12px; font-size: 0.75rem; color: var(--red-text);" onclick="cancelRestTimer()">Pular</button>
     </div>
   </div>
 
@@ -940,6 +1093,7 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
           TREINO RECOMENDADO
         </div>
+        <div class="program-badge" id="todayProgramBadge" hidden></div>
         <h2 class="today-plan-title" id="todayPlanName">—</h2>
         <p class="today-plan-subtitle" id="todayPlanDesc"></p>
         
@@ -964,7 +1118,7 @@
           <div>
             <span class="current-val" id="todayCurrentWeight">—</span> <span style="color:var(--text-muted); font-size:0.9rem;">kg atual</span>
           </div>
-          <div class="target-val">Alvo: <strong style="color:#10b981;" data-goal="target"></strong></div>
+          <div class="target-val">Alvo: <strong style="color:var(--accent-text);" data-goal="target"></strong></div>
         </div>
         <div class="target-progress-bg">
           <div class="target-progress-fill" id="todayWeightBar" style="width: 0%;"></div>
@@ -992,6 +1146,9 @@
         <h2 style="font-size: 1.3rem; font-weight: 800; margin: 0;">Planos de Treino</h2>
         <button type="button" class="btn-secondary" onclick="openNewPlanModal()">+ Novo Plano</button>
       </div>
+
+      <!-- Programa (ciclo de semanas com deload) -->
+      <div id="programCard"></div>
 
       <!-- Planos Accordion / Cards -->
       <div id="plansListContainer"></div>
@@ -1086,7 +1243,7 @@
           </div>
           <div style="text-align: right;">
             <div style="font-size:0.8rem; color:var(--text-muted);">Progresso</div>
-            <div style="font-size:1.1rem; font-weight:800; color:#34d399;" id="measuresPctComplete">0%</div>
+            <div style="font-size:1.1rem; font-weight:800; color:var(--accent-text);" id="measuresPctComplete">0%</div>
           </div>
         </div>
         <div class="target-progress-bg">
@@ -1113,6 +1270,20 @@
         <h3 class="card-title">Variação desde a primeira medição</h3>
         <p class="card-sub" id="measureDeltasSub"></p>
         <div class="delta-grid" id="measureDeltas"></div>
+      </div>
+
+      <!-- Fotos de progresso (ficam só neste aparelho, no IndexedDB) -->
+      <div class="card-box">
+        <div class="card-head">
+          <h3 class="card-title">Fotos de progresso</h3>
+          <div style="display:flex; gap:6px;">
+            <button type="button" class="btn-secondary small-btn" id="btnComparePhotos" onclick="openPhotoCompare()">Comparar</button>
+            <button type="button" class="btn-secondary small-btn" onclick="document.getElementById('photoFileInput').click()">+ Foto</button>
+          </div>
+        </div>
+        <p class="card-sub" id="photosSub">Ficam guardadas só neste iPhone. Tire sempre no mesmo lugar e luz para comparar melhor.</p>
+        <div class="photo-grid" id="photoGrid"></div>
+        <input type="file" id="photoFileInput" accept="image/*" hidden onchange="onPhotoChosen(this)">
       </div>
 
       <!-- Lista de Registros de Medidas -->
@@ -1158,8 +1329,8 @@
   <div id="activeWorkoutView" class="active-workout-view">
     <div class="active-topbar">
       <div>
-        <div style="font-size: 0.72rem; color: #34d399; font-weight: 700; text-transform: uppercase;">Treino em Andamento</div>
-        <div id="activeWorkoutTitle" style="font-size: 1.15rem; font-weight: 800; color: #fff;">Treino A</div>
+        <div style="font-size: 0.72rem; color: var(--accent-text); font-weight: 700; text-transform: uppercase;">Treino em Andamento</div>
+        <div id="activeWorkoutTitle" style="font-size: 1.15rem; font-weight: 800; color: var(--text-strong);">Treino A</div>
       </div>
       <div style="display: flex; gap: 8px;">
         <button type="button" class="btn-secondary" style="padding: 8px 12px; font-size: 0.8rem;" onclick="cancelWorkoutPrompt()">Cancelar</button>
@@ -1169,7 +1340,7 @@
 
     <div class="active-content">
       <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 12px; padding: 10px 14px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
-        <span style="font-size: 0.82rem; color: #34d399; font-weight: 600;">Tempo de Treino: <strong id="activeDurationTimer">00:00</strong></span>
+        <span style="font-size: 0.82rem; color: var(--accent-text); font-weight: 600;">Tempo de Treino: <strong id="activeDurationTimer">00:00</strong></span>
         <span style="font-size: 0.75rem; color: var(--text-muted);" id="activeExerciseProgress">0 / 0 concluídos</span>
       </div>
 
@@ -1238,7 +1409,7 @@
       <form id="formAddMeasure" onsubmit="saveNewMeasurement(event)">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
           <div class="form-group">
-            <label for="measureWeightInput">Peso (kg) *</label>
+            <label for="measureWeightInput" id="measureWeightLabel">Peso (kg) *</label>
             <input type="number" step="0.1" id="measureWeightInput" class="form-control" placeholder="Ex: 84.2" inputmode="decimal" required>
           </div>
           <div class="form-group">
@@ -1323,11 +1494,11 @@
             <input type="number" id="profHeight" class="form-control" placeholder="Ex: 180" inputmode="numeric" min="100" max="250">
           </div>
           <div class="form-group">
-            <label for="profStartWeight">Peso inicial (kg)</label>
+            <label for="profStartWeight" id="profStartLabel">Peso inicial (kg)</label>
             <input type="number" step="0.1" id="profStartWeight" class="form-control" placeholder="Ex: 85" inputmode="decimal" required>
           </div>
           <div class="form-group">
-            <label for="profTargetWeight">Peso meta (kg)</label>
+            <label for="profTargetWeight" id="profTargetLabel">Peso meta (kg)</label>
             <input type="number" step="0.1" id="profTargetWeight" class="form-control" placeholder="Ex: 73" inputmode="decimal" required>
           </div>
           <div class="form-group">
@@ -1341,6 +1512,22 @@
               <option value="5">5</option><option value="6">6</option>
             </select>
           </div>
+          <div class="form-group">
+            <label for="profUnit">Unidade de peso</label>
+            <select id="profUnit" class="form-control" onchange="onProfileUnitChange()">
+              <option value="kg">Quilos (kg)</option><option value="lb">Libras (lb)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="profTheme">Aparência</label>
+            <select id="profTheme" class="form-control" onchange="applyTheme(this.value)">
+              <option value="dark">Escura</option><option value="light">Clara</option><option value="auto">Automática (segue o iPhone)</option>
+            </select>
+          </div>
+          <label class="toggle-line" style="grid-column: span 2;">
+            <input type="checkbox" id="profTrackRir">
+            <span><strong>Registrar RIR</strong> — depois de cada série, anotar quantas reps ainda sobravam (0 = falha). Ajuda a calibrar a progressão.</span>
+          </label>
           <div class="form-group" style="grid-column: span 2;">
             <label for="profRest">Descanso padrão entre séries</label>
             <select id="profRest" class="form-control">
@@ -1361,6 +1548,18 @@
             <button type="button" class="btn-secondary" style="flex: 1;" onclick="document.getElementById('importFileInput').click()">⬆︎ Importar</button>
           </div>
           <input type="file" id="importFileInput" accept="application/json,.json" hidden onchange="importBackupFile(this)">
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section-title">Apple Saúde</div>
+          <label class="toggle-line" style="margin-bottom: 8px;">
+            <input type="checkbox" id="profHealthSync" onchange="toggleHealthSync(this.checked)">
+            <span><strong>Enviar peso ao Saúde</strong> — ao registrar o peso de hoje, o app abre o atalho “GymTrack Peso”, que grava no Saúde. Precisa criar o atalho uma vez.</span>
+          </label>
+          <div style="display: flex; gap: 8px;">
+            <button type="button" class="btn-secondary" style="flex: 1;" onclick="showHealthHelp()">Como configurar</button>
+            <button type="button" class="btn-secondary" style="flex: 1;" onclick="sendWeightToHealth(null, true)">Testar</button>
+          </div>
         </div>
 
         <div class="settings-section" id="installSection">
@@ -1407,6 +1606,63 @@
 
   <datalist id="exerciseLibraryList"></datalist>
 
+  <!-- MODAL: Programa -->
+  <div id="modalProgram" class="app-modal">
+    <div class="modal-sheet">
+      <div class="sheet-handle"></div>
+      <h3 style="margin: 0 0 4px 0; font-size: 1.2rem; font-weight: 800;">Programa de treino</h3>
+      <p class="sheet-intro">Um ciclo de semanas usando seus planos em rodízio. Na semana de deload, o app reduz séries e/ou carga para o corpo recuperar.</p>
+      <form id="formProgram" onsubmit="saveProgram(event)">
+        <div class="form-group">
+          <label for="progName">Nome</label>
+          <input type="text" id="progName" class="form-control" placeholder="Ex.: Ciclo ABC — hipertrofia" required>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="progStart">Início</label>
+            <input type="date" id="progStart" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="progWeeks">Duração</label>
+            <select id="progWeeks" class="form-control">
+              <option value="4">4 semanas</option><option value="6">6 semanas</option><option value="8">8 semanas</option>
+              <option value="10">10 semanas</option><option value="12">12 semanas</option><option value="16">16 semanas</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="progDeloadEvery">Deload</label>
+            <select id="progDeloadEvery" class="form-control">
+              <option value="0">Sem deload</option><option value="4">A cada 4ª semana</option>
+              <option value="5">A cada 5ª semana</option><option value="6">A cada 6ª semana</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="progDeloadStyle">Como reduzir</label>
+            <select id="progDeloadStyle" class="form-control">
+              <option value="volume">Metade das séries</option><option value="carga">Carga −10%</option><option value="ambos">Os dois</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn-large">Salvar programa</button>
+      </form>
+      <button type="button" class="btn-danger" id="progEndBtn" style="margin-top: 10px;" onclick="endProgram()">Encerrar programa</button>
+      <button type="button" class="btn-secondary" style="width: 100%; margin-top: 10px;" onclick="closeModal('modalProgram')">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- MODAL: Editar treino salvo -->
+  <div id="modalEditWorkout" class="app-modal">
+    <div class="modal-sheet">
+      <div class="sheet-handle"></div>
+      <h3 style="margin: 0 0 14px 0; font-size: 1.2rem; font-weight: 800;">Editar treino</h3>
+      <div id="editWorkoutBody"></div>
+      <div style="display: flex; gap: 10px; margin-top: 16px;">
+        <button type="button" class="btn-secondary" style="flex: 1;" onclick="closeModal('modalEditWorkout')">Cancelar</button>
+        <button type="button" class="btn-large" style="flex: 1;" onclick="saveEditWorkout()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
   <!-- MODAL: Diálogo genérico (substitui alert/confirm nativos nos fluxos novos) -->
   <div id="modalDialog" class="app-modal">
     <div class="modal-sheet">
@@ -1423,7 +1679,7 @@
        As chaves "_v1" foram mantidas de propósito: assim esta versão lê os
        dados já gravados pela versão anterior no mesmo endereço.
     ===================================================================== */
-    const APP_VERSION = '2.2 — etapa 3';
+    const APP_VERSION = '2.3 — etapa 4';
     const BACKUP_FORMAT = 2;
     const STORAGE_KEYS = {
       PLANS: 'gymtrack_plans_v1',
@@ -1432,6 +1688,7 @@
       ACTIVE_WORKOUT: 'gymtrack_active_workout_v1',
       PROFILE: 'gymtrack_profile_v1',
       NOTES: 'gymtrack_notes_v1',
+      PROGRAM: 'gymtrack_program_v1',
       META: 'gymtrack_meta_v1'
     };
     const DAY_MS = 24 * 60 * 60 * 1000;
@@ -1612,8 +1869,8 @@
 
     function setLabel(set, type) {
       if (type === 'tempo') return `${parseInt(set.secs, 10) || 0} s`;
-      if (type === 'corporal') return (parseFloat(set.kg) || 0) > 0 ? `+${formatKg(set.kg)}kg × ${set.reps}` : `${set.reps} reps`;
-      return `${formatKg(set.kg)}kg × ${set.reps}`;
+      if (type === 'corporal') return (parseFloat(set.kg) || 0) > 0 ? `+${fmtW(set.kg)} × ${set.reps}` : `${set.reps} reps`;
+      return `${fmtW(set.kg)} × ${set.reps}`;
     }
 
     function bestSet(sets, type) {
@@ -1674,6 +1931,7 @@
       appState.meta = readJSON(STORAGE_KEYS.META, {}) || {};
       appState.activeWorkout = readJSON(STORAGE_KEYS.ACTIVE_WORKOUT, null);
       appState.notes = readJSON(STORAGE_KEYS.NOTES, {}) || {};
+      appState.program = readJSON(STORAGE_KEYS.PROGRAM, null);
       normalizeData();
       rebuildPRs();
     }
@@ -1705,6 +1963,7 @@
         measures: [STORAGE_KEYS.MEASURES, appState.measures],
         profile: [STORAGE_KEYS.PROFILE, appState.profile],
         notes: [STORAGE_KEYS.NOTES, appState.notes],
+        program: [STORAGE_KEYS.PROGRAM, appState.program],
         meta: [STORAGE_KEYS.META, appState.meta]
       };
       try {
@@ -1895,6 +2154,16 @@
         ? `${nextPlan.exercises.length} exercícios • ${nextPlan.desc || 'Foco em evolução'}`
         : 'Crie um plano na aba Treinos ou comece um treino livre.';
 
+      const badge = document.getElementById('todayProgramBadge');
+      const pst = programStatus();
+      badge.hidden = !pst || pst.notStarted || pst.finished;
+      if (pst && !badge.hidden) {
+        badge.className = 'program-badge' + (pst.deload ? ' deload' : '');
+        badge.textContent = pst.deload
+          ? `Semana ${pst.week}/${pst.total} • DELOAD: ${DELOAD_TEXT[pst.style]}`
+          : `${appState.program.name} • semana ${pst.week} de ${pst.total}`;
+      }
+
       updateTargetWeightUI();
       renderNotices();
     }
@@ -1914,7 +2183,7 @@
       extra.innerHTML = '';
 
       const currentWeight = latest ? parseFloat(latest.weight) : (p ? p.startWeight : null);
-      const currentText = currentWeight ? formatNumberBR(currentWeight, 1) : '—';
+      const currentText = currentWeight ? formatNumberBR(toW(currentWeight), 1) : '—';
       document.getElementById('todayCurrentWeight').textContent = currentText;
       document.getElementById('measuresCurrentWeight').textContent = currentText;
 
@@ -1932,15 +2201,15 @@
       const remaining = Math.max(0, losing ? currentWeight - p.targetWeight : p.targetWeight - currentWeight);
       const pct = Math.min(100, Math.max(0, Math.round((done / total) * 100)));
       const verb = losing ? 'perder' : 'ganhar';
-      const remainingText = remaining > 0 ? `Faltam ${formatNumberBR(remaining, 1)} kg` : 'Meta atingida! 🎉';
+      const remainingText = remaining > 0 ? `Faltam ${fmtBody(remaining)}` : 'Meta atingida! 🎉';
 
       const fill = {
         title: losing ? 'META DE EMAGRECIMENTO' : 'META DE GANHO DE PESO',
-        delta: `Objetivo: ${losing ? '−' : '+'}${formatNumberBR(total, 1)} kg`,
-        target: `${formatNumberBR(p.targetWeight, 1)} kg`,
-        targetBadge: `Objetivo: ${formatNumberBR(p.targetWeight, 1)} kg`,
-        start: `Início: ${formatNumberBR(p.startWeight, 1)} kg`,
-        targetLegend: `Meta: ${formatNumberBR(p.targetWeight, 1)} kg`
+        delta: `Objetivo: ${losing ? '−' : '+'}${fmtBody(total)}`,
+        target: `${fmtBody(p.targetWeight)}`,
+        targetBadge: `Objetivo: ${fmtBody(p.targetWeight)}`,
+        start: `Início: ${fmtBody(p.startWeight)}`,
+        targetLegend: `Meta: ${fmtBody(p.targetWeight)}`
       };
       document.querySelectorAll('[data-goal]').forEach(el => { el.textContent = fill[el.dataset.goal] || ''; });
 
@@ -1964,7 +2233,7 @@
       const trend = computeWeightTrend();
       if (trend) {
         const pw = trend.perWeek;
-        chips.push(`Ritmo atual <strong>${pw > 0 ? '+' : pw < 0 ? '−' : ''}${formatNumberBR(Math.abs(pw), 2)} kg/sem</strong>`);
+        chips.push(`Ritmo atual <strong>${pw > 0 ? '+' : pw < 0 ? '−' : ''}${formatNumberBR(Math.abs(pw) / (wUnit() === 'lb' ? LB : 1), 2)} ${wUnit()}/sem</strong>`);
         const rightWay = losing ? pw < -0.02 : pw > 0.02;
         if (remaining > 0 && rightWay) {
           const daysToGo = Math.abs((trend.fitted - p.targetWeight) / (pw / 7));
@@ -1984,7 +2253,7 @@
         if (daysLeft > 0) {
           const perWeek = remaining / (daysLeft / 7);
           chips.push(`<strong>${daysLeft}</strong> dias até ${formatDateBR(p.targetDate)}`);
-          chips.push(`Ritmo necessário <strong>${formatNumberBR(perWeek, 2)} kg/sem</strong> para ${verb}`);
+          chips.push(`Ritmo necessário <strong>${formatNumberBR(perWeek / (wUnit() === 'lb' ? LB : 1), 2)} ${wUnit()}/sem</strong> para ${verb}`);
         } else {
           chips.push(`Data alvo (${formatDateBR(p.targetDate)}) já passou`);
         }
@@ -1995,7 +2264,106 @@
     /* =====================================================================
        TAB 2: TREINOS (Planos Customizáveis & Editáveis)
     ===================================================================== */
+    /* =====================================================================
+       PROGRAMA: semanas numeradas a partir do início; deload a cada N semanas
+    ===================================================================== */
+    function programStatus() {
+      const p = appState.program;
+      if (!p) return null;
+      const week = Math.floor(daysBetween(weekStart(parseDate(p.start)), weekStart(new Date())) / 7) + 1;
+      const every = parseInt(p.deloadEvery, 10) || 0;
+      return {
+        week,
+        total: parseInt(p.weeks, 10) || 8,
+        notStarted: week < 1,
+        finished: week > (parseInt(p.weeks, 10) || 8),
+        deload: week >= 1 && every > 0 && week % every === 0,
+        style: p.deloadStyle || 'volume'
+      };
+    }
+
+    const DELOAD_TEXT = {
+      volume: 'metade das séries, mesma carga',
+      carga: 'mesmas séries, carga −10%',
+      ambos: 'metade das séries e carga −10%'
+    };
+
+    function renderProgramCard() {
+      const box = document.getElementById('programCard');
+      const st = programStatus();
+      if (!st) {
+        box.innerHTML = `
+          <div class="card-box program-card">
+            <div><div class="card-title">Programa</div>
+            <div class="card-sub" style="margin:4px 0 0;">Organize os planos em um ciclo de semanas, com deload para recuperar.</div></div>
+            <button type="button" class="btn-secondary" onclick="openProgramModal()">Criar</button>
+          </div>`;
+        return;
+      }
+      const pct = Math.min(100, Math.max(0, (st.week - 1) / st.total * 100));
+      const label = st.notStarted ? `Começa em ${formatDateBR(appState.program.start)}`
+        : st.finished ? 'Programa concluído 🎉'
+        : `Semana ${st.week} de ${st.total}${st.deload ? ' • deload' : ''}`;
+      box.innerHTML = `
+        <div class="card-box">
+          <div class="program-card">
+            <div>
+              <div class="card-sub" style="margin:0;">PROGRAMA</div>
+              <div class="card-title">${escapeHtml(appState.program.name)}</div>
+            </div>
+            <button type="button" class="btn-secondary" onclick="openProgramModal()">Editar</button>
+          </div>
+          <div class="target-progress-bg" style="height:8px; margin:12px 0 6px;"><div class="target-progress-fill" style="width:${st.finished ? 100 : pct}%"></div></div>
+          <div class="card-sub" style="margin:0;">${label}${st.deload ? ` — ${DELOAD_TEXT[st.style]}` : ''}${parseInt(appState.program.deloadEvery, 10) ? '' : ' • sem deload'}</div>
+        </div>`;
+    }
+
+    function openProgramModal() {
+      const p = appState.program;
+      const monday = weekStart(new Date());
+      document.getElementById('progName').value = p ? p.name : '';
+      document.getElementById('progStart').value = p ? p.start : `${monday.getFullYear()}-${String(monday.getMonth() + 1).padStart(2, '0')}-${String(monday.getDate()).padStart(2, '0')}`;
+      document.getElementById('progWeeks').value = String(p ? p.weeks : 8);
+      document.getElementById('progDeloadEvery').value = String(p ? p.deloadEvery : 4);
+      document.getElementById('progDeloadStyle').value = p ? p.deloadStyle : 'volume';
+      document.getElementById('progEndBtn').style.display = p ? '' : 'none';
+      openModal('modalProgram');
+    }
+
+    function saveProgram(e) {
+      e.preventDefault();
+      appState.program = {
+        name: document.getElementById('progName').value.trim(),
+        start: document.getElementById('progStart').value,
+        weeks: parseInt(document.getElementById('progWeeks').value, 10),
+        deloadEvery: parseInt(document.getElementById('progDeloadEvery').value, 10),
+        deloadStyle: document.getElementById('progDeloadStyle').value
+      };
+      saveState('program');
+      closeModal('modalProgram');
+      renderRoutinesTab();
+      renderTodayTab();
+    }
+
+    function endProgram() {
+      showDialog({
+        title: 'Encerrar programa?',
+        body: 'Os treinos feitos continuam no histórico. Só o ciclo de semanas deixa de existir.',
+        actions: [
+          { label: 'Encerrar', style: 'danger', onClick: () => {
+            appState.program = null;
+            saveState('program');
+            closeModal('modalProgram');
+            renderRoutinesTab();
+            renderTodayTab();
+          } },
+          { label: 'Cancelar', style: 'secondary' }
+        ]
+      });
+    }
+
     function renderRoutinesTab() {
+      renderProgramCard();
       const container = document.getElementById('plansListContainer');
       container.innerHTML = '';
 
@@ -2005,12 +2373,12 @@
         card.style.marginBottom = '14px';
 
         let exercisesHtml = plan.exercises.map(ex => `
-          <div style="display:flex; justify-content:space-between; align-items:center; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.88rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; padding: 6px 0; border-bottom: 1px solid var(--hairline); font-size: 0.88rem;">
             <div>
               <strong>${escapeHtml(ex.name)}</strong>
               <div style="font-size: 0.72rem; color: var(--text-muted);">${escapeHtml(MUSCLE_LABELS[ex.muscle] || ex.muscle || '')}${ex.type && ex.type !== 'carga' ? ' • ' + TYPE_LABELS[ex.type] : ''}${ex.restSec ? ' • ⏱ ' + formatRest(ex.restSec) : ''}</div>
             </div>
-            <div style="font-weight: 700; color: #38bdf8; font-size: 0.82rem; white-space: nowrap;">
+            <div style="font-weight: 700; color: var(--sky-text); font-size: 0.82rem; white-space: nowrap;">
               ${ex.sets}× ${ex.type === 'tempo' ? ex.reps + 's' : ex.reps + ' reps'}
             </div>
           </div>
@@ -2024,7 +2392,7 @@
               <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">${escapeHtml(plan.desc || '')}</p>
             </div>
           </div>
-          <div style="margin: 12px 0; background: rgba(0,0,0,0.18); border-radius: 10px; padding: 8px 12px;">
+          <div style="margin: 12px 0; background: var(--inset); border-radius: 10px; padding: 8px 12px;">
             ${exercisesHtml}
           </div>
           <div style="display: flex; gap: 8px;">
@@ -2034,7 +2402,7 @@
             <button type="button" class="btn-secondary" style="padding: 10px 14px; flex: 1;" onclick="openEditPlanModal(${planIdx})">
               Editar
             </button>
-            <button type="button" class="btn-secondary" style="padding: 10px; color: #f87171;" onclick="deletePlan(${planIdx})" title="Excluir Plano">
+            <button type="button" class="btn-secondary" style="padding: 10px; color: var(--red-text);" onclick="deletePlan(${planIdx})" title="Excluir Plano">
               🗑️
             </button>
           </div>
@@ -2055,7 +2423,7 @@
         item.style.padding = '14px';
         item.innerHTML = `
           <div style="text-align: left;">
-            <div style="font-weight: 700; color: #fff;">${escapeHtml(plan.name)}</div>
+            <div style="font-weight: 700; color: var(--text-strong);">${escapeHtml(plan.name)}</div>
             <div style="font-size: 0.75rem; color: var(--text-muted);">${plan.exercises.length} exercícios</div>
           </div>
           <span style="color: var(--accent); font-weight: 800;">Iniciar ›</span>
@@ -2090,7 +2458,10 @@
 
       const exContainer = document.getElementById('planEditorExercisesList');
       exContainer.innerHTML = '';
-      plan.exercises.forEach(ex => addExerciseFieldToPlanEditor(ex));
+      plan.exercises.forEach((ex, i) => {
+        const next = plan.exercises[i + 1];
+        addExerciseFieldToPlanEditor({ ...ex, linkNext: !!(ex.superset && next && next.superset === ex.superset) });
+      });
       openModal('modalPlanEditor');
     }
 
@@ -2099,7 +2470,7 @@
     }
 
     function addExerciseFieldToPlanEditor(ex = {}) {
-      const { name = '', muscle = 'peito', type = 'carga', sets = 3, reps = 10, restSec = '' } = ex;
+      const { name = '', muscle = 'peito', type = 'carga', sets = 3, reps = 10, restSec = '', linkNext = false } = ex;
       const container = document.getElementById('planEditorExercisesList');
       const row = document.createElement('div');
       row.className = 'plan-ex-row';
@@ -2116,6 +2487,7 @@
           <label>Descanso<select class="form-control" data-f="restSec">${optionsHtml(rests, restSec || '')}</select></label>
           <label>Séries<input type="number" class="form-control" data-f="sets" value="${sets}" min="1" max="10" inputmode="numeric" required></label>
           <label><span data-reps-label>${type === 'tempo' ? 'Segundos' : 'Reps'}</span><input type="number" class="form-control" data-f="reps" value="${reps}" min="1" max="600" inputmode="numeric" required></label>
+          <label class="ss-check"><input type="checkbox" data-f="linkNext" ${linkNext ? 'checked' : ''}> 🔗 Supersérie com o próximo</label>
         </div>`;
       container.appendChild(row);
       if (!name) row.querySelector('[data-f="name"]').focus();
@@ -2156,14 +2528,24 @@
           reps: parseInt(val('reps'), 10) || 10
         };
         if (val('restSec')) item.restSec = parseInt(val('restSec'), 10);
+        item.linkNext = row.querySelector('[data-f="linkNext"]').checked;
         if (previous && previous.defaultKg !== undefined) item.defaultKg = previous.defaultKg;
         exercises.push(item);
       });
 
       if (exercises.length === 0) {
-        alert('Adicione ao menos um exercício.');
+        showDialog({ title: 'Plano vazio', body: 'Adicione ao menos um exercício.' });
         return;
       }
+      // Linhas marcadas "supersérie com o próximo" viram um grupo com o mesmo id
+      let groupId = null;
+      exercises.forEach((item, i) => {
+        const prevLinked = i > 0 && exercises[i - 1].linkNext;
+        if (!prevLinked) groupId = item.linkNext ? 'ss_' + Date.now() + '_' + i : null;
+        if (groupId && (item.linkNext || prevLinked)) item.superset = groupId;
+      });
+      exercises.forEach(item => delete item.linkNext);
+      cleanSupersets(exercises);
 
       if (planIdxVal !== '') {
         // Edit existing
@@ -2229,12 +2611,15 @@
     }
 
     function initActiveSession(planName, exerciseTemplates, planId) {
+      const pst = programStatus();
+      const deload = !!(pst && pst.deload);
       appState.activeWorkout = {
         title: planName,
         planId: planId || null,
         startTime: Date.now(),
         restEndsAt: null,
-        exercises: exerciseTemplates.map(buildActiveExercise)
+        deload: deload ? pst.style : null,
+        exercises: exerciseTemplates.map(tpl => applyDeload(buildActiveExercise(tpl), deload ? pst.style : null))
       };
       saveState('active');
       openActiveWorkoutScreen();
@@ -2275,6 +2660,7 @@
         type,
         inc: info.inc,
         restSec: tpl.restSec || null,
+        superset: tpl.superset || undefined,
         target: target || null,
         previous: last ? `${setLabel(bestSet(lastWork.length ? lastWork : last.sets, type), type)} (${formatDateBR(last.date).slice(0, 5)})` : null,
         suggestion: last ? computeSuggestion(type, lastWork, target, info.inc, count) : null,
@@ -2282,10 +2668,33 @@
       };
     }
 
-    // Sessão mais recente deste exercício com séries concluídas (histórico está do mais novo ao mais antigo)
+    function applyDeload(ex, style) {
+      if (!style) return ex;
+      const work = ex.sets.filter(st => st.kind !== 'aquecimento');
+      if (style === 'volume' || style === 'ambos') {
+        const keep = Math.max(1, Math.ceil(work.length / 2));
+        let seen = 0;
+        ex.sets = ex.sets.filter(st => st.kind === 'aquecimento' || ++seen <= keep);
+      }
+      if ((style === 'carga' || style === 'ambos') && ex.type !== 'tempo') {
+        const step = ex.inc || 2.5;
+        ex.sets.forEach(st => {
+          if (st.kind === 'aquecimento' || !(st.kg > 0)) return;
+          st.kg = wUnit() === 'lb'
+            ? fromW(Math.max(0, Math.round(toW(st.kg * 0.9) / 5) * 5))
+            : Math.max(0, Math.round(st.kg * 0.9 / step) * step);
+        });
+      }
+      ex.suggestion = { kind: 'hold', text: `Semana de deload: ${DELOAD_TEXT[style]}. Sem buscar recorde hoje.` };
+      return ex;
+    }
+
+    // Sessão mais recente deste exercício com séries concluídas (histórico está do mais novo ao mais antigo).
+    // Treinos de deload são pulados para a progressão continuar da última semana normal.
     function getLastSession(exerciseName) {
       const key = normalizeName(exerciseName);
       for (const workout of appState.history) {
+        if (workout.deload) continue;
         const ex = (workout.exercises || []).find(e => normalizeName(e.name) === key);
         const sets = ex ? (ex.sets || []).filter(isSetDone) : [];
         if (sets.length) return { date: workout.date, sets };
@@ -2312,10 +2721,13 @@
       }
       const topKg = Math.max(...considered.map(st => parseFloat(st.kg) || 0));
       if (topKg <= 0) return null;
-      const next = Math.round((topKg + inc) * 100) / 100;
+      const easy = hitAll && considered.every(st => st.rir !== undefined && st.rir >= 3);
+      const next = wUnit() === 'lb'
+        ? fromW(toW(topKg) + stepInDisplay(inc) * (easy ? 2 : 1))
+        : Math.round((topKg + inc * (easy ? 2 : 1)) * 100) / 100;
       return hitAll
-        ? { kind: 'up', kg: next, reps: target, text: `Você fez ${target} reps em todas com ${formatKg(topKg)}kg. Suba para <strong>${formatKg(next)}kg</strong>.` }
-        : { kind: 'hold', text: `Mantenha <strong>${formatKg(topKg)}kg</strong> e busque ${target} reps em todas as séries.` };
+        ? { kind: 'up', kg: next, reps: target, text: `Você fez ${target} reps em todas com ${fmtW(topKg)}${easy ? ' e ainda sobrava (RIR 3+)' : ''}. Suba para <strong>${fmtW(next)}</strong>.` }
+        : { kind: 'hold', text: `Mantenha <strong>${fmtW(topKg)}</strong> e busque ${target} reps em todas as séries.` };
     }
 
     function applySuggestion(exIdx) {
@@ -2333,6 +2745,44 @@
       renderActiveExercises();
     }
 
+    /* Unidade de peso: tudo é guardado em kg; a tela mostra kg ou lb conforme o Perfil */
+    const LB = 0.45359237;
+    function wUnit() {
+      return appState.profile && appState.profile.unit === 'lb' ? 'lb' : 'kg';
+    }
+    // kg → número na unidade da tela
+    function toW(kg) {
+      const v = parseFloat(kg) || 0;
+      return wUnit() === 'lb' ? Math.round(v / LB * 10) / 10 : Math.round(v * 100) / 100;
+    }
+    // número digitado na unidade da tela → kg
+    function fromW(value) {
+      const v = parseFloat(String(value).replace(',', '.')) || 0;
+      return wUnit() === 'lb' ? Math.round(v * LB * 10000) / 10000 : v;
+    }
+    function formatW(kg, decimals) {
+      const v = toW(kg);
+      return decimals === undefined ? formatKg(v) : formatNumberBR(v, decimals);
+    }
+    // "72,5kg" / "160lb"
+    function fmtW(kg, round) {
+      const v = toW(kg);
+      return `${formatKg(round ? Math.round(v) : v)}${wUnit()}`;
+    }
+    // peso corporal com 1 casa: "81,6 kg"
+    function fmtBody(kg) {
+      return `${formatNumberBR(toW(kg), 1)} ${wUnit()}`;
+    }
+    // volume total: toneladas em kg, milhares em lb
+    function fmtVolume(kg) {
+      return wUnit() === 'lb' ? `${formatNumberBR(toW(kg) / 1000, 1)} mil lb` : `${formatNumberBR(kg / 1000, 1)} t`;
+    }
+    // passo do +/− na unidade da tela (em lb: anilhas de 2,5 lb de cada lado = 5 lb)
+    function stepInDisplay(incKg) {
+      if (wUnit() === 'kg') return incKg;
+      return { 1: 2.5, 2: 5, 2.5: 5, 5: 10, 10: 20 }[incKg] || 5;
+    }
+
     function formatKg(kg) {
       const n = parseFloat(kg) || 0;
       return Number.isInteger(n) ? String(n) : formatNumberBR(n, 1);
@@ -2343,7 +2793,7 @@
       view.classList.add('open');
       document.body.style.overflow = 'hidden';
 
-      document.getElementById('activeWorkoutTitle').textContent = appState.activeWorkout.title;
+      document.getElementById('activeWorkoutTitle').textContent = appState.activeWorkout.title + (appState.activeWorkout.deload ? ' • deload' : '');
 
       // Start elapsed timer
       startActiveDurationTimer();
@@ -2387,10 +2837,13 @@
         container.innerHTML = '<div class="empty-state"><div class="empty-icon">🏋️</div>Treino vazio. Adicione o primeiro exercício abaixo.</div>';
       }
 
+      const groups = supersetLabels(exercises);
+      const trackRir = !!(appState.profile && appState.profile.trackRir);
       exercises.forEach((ex, exIdx) => {
         const type = ex.type || 'carga';
         const card = document.createElement('div');
-        card.className = 'card-box active-ex-card';
+        const ss = groups[exIdx];
+        card.className = 'card-box active-ex-card' + (ss ? ` in-superset ${ss.first ? 'ss-first' : ''} ${ss.last ? 'ss-last' : ''}` : '');
         const note = appState.notes[ex.name];
 
         const prevHint = ex.previous
@@ -2405,7 +2858,8 @@
           </div>` : '';
 
         const single = type === 'tempo';
-        const cols = single ? ['SÉRIE', 'TEMPO (SEG)', 'OK'] : ['SÉRIE', type === 'corporal' ? '+ CARGA (KG)' : 'CARGA (KG)', 'REPS', 'OK'];
+        const U = wUnit().toUpperCase();
+        const cols = single ? ['SÉRIE', 'TEMPO (SEG)', 'OK'] : ['SÉRIE', type === 'corporal' ? `+ CARGA (${U})` : `CARGA (${U})`, 'REPS', 'OK'];
         const stepper = (sIdx, field, val, mode) => `
           <div class="stepper-input">
             <button type="button" class="step-btn" onclick="stepActiveSet(${exIdx}, ${sIdx}, '${field}', -1)" aria-label="Diminuir">−</button>
@@ -2422,7 +2876,7 @@
           const label = SET_KIND_LETTER[kind] || String(++workingNum);
           const inputs = single
             ? stepper(sIdx, 'secs', st.secs || 0, 'numeric')
-            : stepper(sIdx, 'kg', st.kg || 0, 'decimal') + stepper(sIdx, 'reps', st.reps || 0, 'numeric');
+            : stepper(sIdx, 'kg', toW(st.kg), 'decimal') + stepper(sIdx, 'reps', st.reps || 0, 'numeric');
           setsHtml += `
             <div class="set-row ${single ? 'single' : ''} ${st.done ? 'completed' : ''}">
               <button type="button" class="set-num kind-${kind}" onclick="cycleSetKind(${exIdx}, ${sIdx})" aria-label="Série ${label}: ${SET_KIND_NAME[kind]}. Toque para mudar o tipo">${label}</button>
@@ -2431,6 +2885,13 @@
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
               </button>
             </div>`;
+          if (trackRir && st.done) {
+            const asking = appState.rirPrompt && appState.rirPrompt.exIdx === exIdx && appState.rirPrompt.sIdx === sIdx;
+            setsHtml += asking
+              ? `<div class="rir-row"><span>Quantas reps ainda sobravam?</span>${[0, 1, 2, 3, 4].map(v =>
+                  `<button type="button" class="${st.rir === v ? 'active' : ''}" onclick="setRir(${exIdx}, ${sIdx}, ${v})">${v === 4 ? '4+' : v}</button>`).join('')}</div>`
+              : `<button type="button" class="rir-tag" onclick="askRir(${exIdx}, ${sIdx})">${st.rir !== undefined ? `RIR ${st.rir === 4 ? '4+' : st.rir}` : '+ RIR'}</button>`;
+          }
         });
 
         card.innerHTML = `
@@ -2438,6 +2899,7 @@
             <div style="min-width: 0;">
               <span class="tag-muscle ${escapeHtml(ex.muscle)}">${escapeHtml(MUSCLE_LABELS[ex.muscle] || ex.muscle)}</span>
               ${type !== 'carga' ? `<span class="tag-type">${TYPE_LABELS[type]}</span>` : ''}
+              ${ss ? `<span class="tag-ss">🔗 Supersérie ${ss.label}</span>` : ''}
               <h4 class="active-ex-name">${escapeHtml(ex.name)}</h4>
               ${prevHint}
               ${note ? `<div class="ex-note">📝 ${escapeHtml(note)}</div>` : ''}
@@ -2461,17 +2923,24 @@
     function stepActiveSet(exIdx, sIdx, field, dir) {
       const ex = appState.activeWorkout.exercises[exIdx];
       const st = ex.sets[sIdx];
-      const step = field === 'kg' ? (ex.inc || getExerciseInfo(ex.name).inc) : field === 'secs' ? 5 : 1;
-      const min = field === 'kg' ? 0 : field === 'secs' ? 5 : 1;
-      const val = Math.round(((parseFloat(st[field]) || 0) + dir * step) * 100) / 100;
-      st[field] = Math.max(min, val);
+      if (field === 'kg') {
+        const step = stepInDisplay(ex.inc || getExerciseInfo(ex.name).inc);
+        // Em lb, o resultado encaixa em múltiplos de 2,5 lb (pesos convertidos de kg ficam "quebrados")
+        const raw = toW(st.kg) + dir * step;
+        const shown = Math.max(0, wUnit() === 'lb' ? Math.round(raw / 2.5) * 2.5 : Math.round(raw * 100) / 100);
+        st.kg = fromW(shown);
+      } else {
+        const step = field === 'secs' ? 5 : 1;
+        const min = field === 'secs' ? 5 : 1;
+        st[field] = Math.max(min, (parseFloat(st[field]) || 0) + dir * step);
+      }
       saveState('active');
       renderActiveExercises();
     }
 
     function updateActiveSetValue(exIdx, sIdx, field, val) {
       const s = appState.activeWorkout.exercises[exIdx].sets[sIdx];
-      s[field] = parseFloat(val) || 0;
+      s[field] = field === 'kg' ? fromW(val) : (parseFloat(val) || 0);
       saveState('active');
     }
 
@@ -2499,6 +2968,11 @@
         { label: appState.notes[ex.name] ? '📝 Editar nota' : '📝 Adicionar nota', style: 'secondary', onClick: () => editExerciseNote(ex.name) },
         { label: `⏱ Descanso: ${formatRest(getRestSeconds(ex))}`, style: 'secondary', onClick: () => pickExerciseRest(exIdx) }
       ];
+      const linked = supersetLabels(exs)[exIdx];
+      if (linked) actions.push({ label: '⛓ Desfazer supersérie', style: 'secondary', onClick: () => unlinkSuperset(exIdx) });
+      if (exIdx < exs.length - 1 && !(linked && !linked.last)) {
+        actions.push({ label: `🔗 Supersérie com ${exs[exIdx + 1].name}`, style: 'secondary', onClick: () => linkSuperset(exIdx) });
+      }
       if (exIdx > 0) actions.push({ label: '⬆︎ Mover para cima', style: 'secondary', onClick: () => moveExercise(exIdx, -1) });
       if (exIdx < exs.length - 1) actions.push({ label: '⬇︎ Mover para baixo', style: 'secondary', onClick: () => moveExercise(exIdx, 1) });
       actions.push({ label: 'Remover do treino', style: 'danger', onClick: () => removeExercise(exIdx) });
@@ -2510,6 +2984,7 @@
       const exs = appState.activeWorkout.exercises;
       const [item] = exs.splice(exIdx, 1);
       exs.splice(exIdx + dir, 0, item);
+      cleanSupersets(exs);
       saveState('active');
       renderActiveExercises();
     }
@@ -2518,6 +2993,7 @@
       const ex = appState.activeWorkout.exercises[exIdx];
       const doDelete = () => {
         appState.activeWorkout.exercises.splice(exIdx, 1);
+        cleanSupersets(appState.activeWorkout.exercises);
         saveState('active');
         renderActiveExercises();
       };
@@ -2592,18 +3068,110 @@
     }
 
     function toggleSetDone(exIdx, sIdx) {
-      const ex = appState.activeWorkout.exercises[exIdx];
+      const exs = appState.activeWorkout.exercises;
+      const ex = exs[exIdx];
       const s = ex.sets[sIdx];
       s.done = !s.done;
+      appState.rirPrompt = null;
 
       if (s.done) {
-        startRestTimer(getRestSeconds(ex));
+        // Em supersérie, o descanso só começa depois do último exercício do grupo
+        const ss = supersetLabels(exs)[exIdx];
+        if (ss && !ss.last) {
+          cancelRestTimer();
+          showToast(`Supersérie: vá para ${exs[exIdx + 1].name}`);
+        } else {
+          startRestTimer(getRestSeconds(ex));
+        }
         checkNewPR(ex, sIdx);
+        if (appState.profile && appState.profile.trackRir) appState.rirPrompt = { exIdx, sIdx };
         if (navigator.vibrate) navigator.vibrate(50);
       }
 
       saveState('active');
       renderActiveExercises();
+    }
+
+    function askRir(exIdx, sIdx) {
+      appState.rirPrompt = { exIdx, sIdx };
+      renderActiveExercises();
+    }
+
+    function setRir(exIdx, sIdx, value) {
+      appState.activeWorkout.exercises[exIdx].sets[sIdx].rir = value;
+      appState.rirPrompt = null;
+      saveState('active');
+      renderActiveExercises();
+    }
+
+    function showToast(text) {
+      let el = document.getElementById('appToast');
+      if (!el) {
+        el = document.createElement('div');
+        el.id = 'appToast';
+        el.className = 'app-toast';
+        document.body.appendChild(el);
+      }
+      el.textContent = text;
+      el.classList.add('show');
+      clearTimeout(el._t);
+      el._t = setTimeout(() => el.classList.remove('show'), 2200);
+    }
+
+    /* ---------- Superséries: exercícios vizinhos com o mesmo id de grupo ---------- */
+    // Retorna, por índice, { label: 'A1', first, last } para quem está num grupo de 2+ exercícios seguidos
+    function supersetLabels(exs) {
+      const out = {};
+      let letter = 0;
+      for (let i = 0; i < exs.length; i++) {
+        const id = exs[i].superset;
+        if (!id || (i > 0 && exs[i - 1].superset === id)) continue;
+        let j = i;
+        while (j + 1 < exs.length && exs[j + 1].superset === id) j++;
+        if (j === i) continue;
+        const L = String.fromCharCode(65 + letter++);
+        for (let k = i; k <= j; k++) out[k] = { label: `${L}${k - i + 1}`, first: k === i, last: k === j };
+      }
+      return out;
+    }
+
+    // Remove ids de grupo que ficaram com um exercício só (após mover/remover)
+    function cleanSupersets(exs) {
+      const labels = supersetLabels(exs);
+      exs.forEach((ex, i) => { if (ex.superset && !labels[i]) delete ex.superset; });
+    }
+
+    function linkSuperset(exIdx) {
+      const exs = appState.activeWorkout.exercises;
+      const id = exs[exIdx].superset || exs[exIdx + 1].superset || 'ss_' + Date.now();
+      exs[exIdx].superset = id;
+      exs[exIdx + 1].superset = id;
+      syncSupersetsToPlan();
+      saveState('active');
+      renderActiveExercises();
+    }
+
+    function unlinkSuperset(exIdx) {
+      const exs = appState.activeWorkout.exercises;
+      const id = exs[exIdx].superset;
+      exs.forEach(ex => { if (ex.superset === id) delete ex.superset; });
+      syncSupersetsToPlan();
+      saveState('active');
+      renderActiveExercises();
+    }
+
+    // Num treino de plano, as superséries ficam salvas no plano para as próximas vezes
+    function syncSupersetsToPlan() {
+      const plan = appState.plans.find(p => p.id === appState.activeWorkout.planId);
+      if (!plan) return;
+      const exs = appState.activeWorkout.exercises;
+      plan.exercises.forEach(pe => {
+        const ae = exs.find(e => normalizeName(e.name) === normalizeName(pe.name));
+        if (!ae) return;
+        if (ae.superset) pe.superset = ae.superset; else delete pe.superset;
+      });
+      cleanSupersets(plan.exercises);
+      saveState('plans');
     }
 
     function getRestSeconds(ex) {
@@ -2623,7 +3191,7 @@
         .filter((other, i) => i !== sIdx && other.done && other.kind !== 'aquecimento')
         .map(other => setMetric(other, type)));
       if (metric > Math.max(historic, sessionBest) + 0.01) {
-        const extra = type === 'carga' ? ` (1RM est. ${formatKg(Math.round(metric))}kg)` : '';
+        const extra = type === 'carga' ? ` (1RM est. ${fmtW(metric, true)})` : '';
         triggerPRCelebration(`NOVO PR! ${ex.name}: ${setLabel(set, type)}${extra} 🏆`);
       }
     }
@@ -2854,10 +3422,12 @@
           name: ex.name,
           muscle: ex.muscle,
           type: ex.type || 'carga',
+          ...(ex.superset ? { superset: ex.superset } : {}),
           sets: ex.sets.filter(s => s.done).map(s => {
             const out = { kg: parseFloat(s.kg) || 0, reps: parseInt(s.reps, 10) || 0, done: true };
             if (ex.type === 'tempo') out.secs = parseInt(s.secs, 10) || 0;
             if (s.kind && s.kind !== 'normal') out.kind = s.kind;
+            if (s.rir !== undefined) out.rir = s.rir;
             return out;
           })
         }))
@@ -2869,6 +3439,7 @@
         date: new Date().toISOString(),
         planId: w.planId || null,
         planName: w.title,
+        ...(w.deload ? { deload: w.deload } : {}),
         durationMin,
         exercises,
         cardio: { type: cardioType, duration: cardioDur, distance: cardioDist }
@@ -2911,7 +3482,7 @@
           <div class="summary-grid">
             <div class="kpi-item"><div class="label">Duração</div><div class="value">${record.durationMin} min</div></div>
             <div class="kpi-item"><div class="label">Séries</div><div class="value">${sets}</div></div>
-            <div class="kpi-item"><div class="label">Volume</div><div class="value">${formatNumberBR(volume / 1000, 1)} t</div></div>
+            <div class="kpi-item"><div class="label">Volume</div><div class="value">${fmtVolume(volume)}</div></div>
           </div>
           ${prsHtml}`,
         actions: [{ label: 'Fechar', style: 'primary' }]
@@ -2982,6 +3553,10 @@
       }
     }
 
+    function kindLetter(st) {
+      return { aquecimento: 'A', drop: 'D', falha: 'F' }[st.kind] || '';
+    }
+
     function renderHistoryList() {
       const container = document.getElementById('historyLogList');
       container.innerHTML = '';
@@ -2991,50 +3566,173 @@
         return;
       }
 
-      appState.history.forEach((h, hIdx) => {
+      appState.history.forEach(h => {
         const card = document.createElement('div');
         card.className = 'card-box';
         card.style.marginBottom = '12px';
+        const open = appState.expandedHistory && appState.expandedHistory.has(h.id);
+        const stats = workoutStats(h);
 
-        let exercisesSummary = h.exercises.map(ex => {
+        const exercisesHtml = h.exercises.map(ex => {
           const doneSets = (ex.sets || []).filter(isSetDone);
           if (doneSets.length === 0) return '';
-          const type = ex.type || getExerciseInfo(ex.name).type;
+          const type = exerciseTypeOf(ex);
           const working = doneSets.filter(isWorkingSet);
           const topSet = bestSet(working.length ? working : doneSets, type);
-          const loadStr = topSet ? setLabel(topSet, type) : '';
+          const detail = open ? `<div class="hist-sets">${doneSets.map(st => `
+              <span class="hist-set ${st.kind ? 'k-' + st.kind : ''}">${kindLetter(st) ? `<b>${kindLetter(st)}</b> ` : ''}${setLabel(st, type)}${st.rir !== undefined ? ` <i>RIR ${st.rir}</i>` : ''}</span>`).join('')}</div>` : '';
           return `
-            <div style="font-size: 0.82rem; display: flex; justify-content: space-between; padding: 2px 0;">
-              <span>• ${escapeHtml(ex.name)} (${doneSets.length} ${doneSets.length === 1 ? 'série' : 'séries'})</span>
-              <strong style="color: #38bdf8;">${loadStr}</strong>
-            </div>
-          `;
+            <div class="hist-ex">
+              <div class="hist-ex-line">
+                <span>${escapeHtml(ex.name)} <small>(${doneSets.length} ${doneSets.length === 1 ? 'série' : 'séries'})</small></span>
+                <strong class="txt-blue">${topSet ? setLabel(topSet, type) : ''}</strong>
+              </div>${detail}
+            </div>`;
         }).join('');
 
-        let cardioBadge = '';
-        if (h.cardio && h.cardio.type && h.cardio.type !== 'nenhum') {
-          cardioBadge = `
-            <div style="margin-top: 8px; font-size: 0.78rem; background: rgba(59, 130, 246, 0.15); color: #60a5fa; padding: 4px 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;">
-              🏃 ${escapeHtml(h.cardio.type)}: ${h.cardio.duration} min ${h.cardio.distance ? `(${h.cardio.distance} km)` : ''}
-            </div>
-          `;
-        }
+        const cardio = h.cardio && h.cardio.type && h.cardio.type !== 'nenhum'
+          ? `<div class="cardio-badge">🏃 ${escapeHtml(h.cardio.type)}: ${h.cardio.duration} min ${h.cardio.distance ? `(${formatNumberBR(h.cardio.distance, 1)} km)` : ''}</div>` : '';
+        const note = h.note ? `<div class="hist-note">📝 ${escapeHtml(h.note)}</div>` : '';
 
         card.innerHTML = `
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 8px;">
+          <div class="hist-head">
             <div>
-              <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">${formatDateBR(h.date)} • ⏱️ ${h.durationMin || 45} min</div>
-              <h3 style="font-size: 1.05rem; font-weight: 800; margin: 2px 0;">${escapeHtml(h.planName)}</h3>
+              <div class="hist-meta">${formatDateBR(h.date)} • ⏱️ ${h.durationMin || 0} min${stats.volume ? ` • ${fmtVolume(stats.volume)}` : ''}</div>
+              <h3 class="hist-title">${escapeHtml(h.planName)}${h.deload ? ' <span class="tag-type">deload</span>' : ''}</h3>
             </div>
-            <button type="button" class="btn-secondary" style="padding: 4px 8px; font-size: 0.72rem; color: #f87171;" onclick="deleteHistoryRecord('${h.id}')">Excluir</button>
+            <div class="hist-actions">
+              <button type="button" class="btn-secondary" onclick="openEditWorkout('${h.id}')">Editar</button>
+              <button type="button" class="btn-secondary txt-red" onclick="deleteHistoryRecord('${h.id}')">Excluir</button>
+            </div>
           </div>
-          <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 6px; margin-top: 6px;">
-            ${exercisesSummary}
-          </div>
-          ${cardioBadge}
-        `;
+          <div class="hist-body">${exercisesHtml}</div>
+          ${note}${cardio}
+          <button type="button" class="hist-toggle" onclick="toggleHistoryDetail('${h.id}')">${open ? 'Ocultar séries ▴' : 'Ver todas as séries ▾'}</button>`;
         container.appendChild(card);
       });
+    }
+
+    function toggleHistoryDetail(id) {
+      appState.expandedHistory = appState.expandedHistory || new Set();
+      if (appState.expandedHistory.has(id)) appState.expandedHistory.delete(id);
+      else appState.expandedHistory.add(id);
+      renderHistoryList();
+    }
+
+    /* ---------- Editar treino salvo ---------- */
+    function toLocalInput(date) {
+      const d = new Date(date);
+      const p = n => String(n).padStart(2, '0');
+      return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
+    }
+
+    function openEditWorkout(id) {
+      const rec = appState.history.find(h => h.id === id);
+      if (!rec) return;
+      appState.editDraft = JSON.parse(JSON.stringify(rec));
+      appState.editDraft.exercises.forEach(ex => {
+        ex.type = exerciseTypeOf(ex);
+        ex.sets = (ex.sets || []).filter(isSetDone);
+      });
+      renderEditWorkout();
+      openModal('modalEditWorkout');
+    }
+
+    function renderEditWorkout() {
+      const d = appState.editDraft;
+      const kindOpts = st => [['normal', '–'], ['aquecimento', 'A'], ['drop', 'D'], ['falha', 'F']]
+        .map(([v, l]) => `<option value="${v}" ${(st.kind || 'normal') === v ? 'selected' : ''}>${l}</option>`).join('');
+      const exHtml = d.exercises.map((ex, ei) => {
+        const tempo = ex.type === 'tempo';
+        const rows = ex.sets.map((st, si) => `
+          <div class="ew-set ${tempo ? 'single' : ''}">
+            <select class="form-control" onchange="editDraftSet(${ei}, ${si}, 'kind', this.value)" aria-label="Tipo da série">${kindOpts(st)}</select>
+            ${tempo
+              ? `<input type="number" class="form-control" inputmode="numeric" value="${st.secs || 0}" onchange="editDraftSet(${ei}, ${si}, 'secs', this.value)" aria-label="Segundos">`
+              : `<input type="number" step="any" class="form-control" inputmode="decimal" value="${toW(st.kg)}" onchange="editDraftSet(${ei}, ${si}, 'kg', this.value)" aria-label="Carga">
+                 <input type="number" class="form-control" inputmode="numeric" value="${st.reps || 0}" onchange="editDraftSet(${ei}, ${si}, 'reps', this.value)" aria-label="Reps">`}
+            <button type="button" class="row-remove" onclick="editDraftRemoveSet(${ei}, ${si})" aria-label="Remover série">×</button>
+          </div>`).join('');
+        return `
+          <div class="ew-ex">
+            <div class="ew-ex-head">
+              <strong>${escapeHtml(ex.name)}</strong>
+              <button type="button" class="row-remove" onclick="editDraftRemoveExercise(${ei})" aria-label="Remover exercício">×</button>
+            </div>
+            <div class="ew-set ew-set-head ${tempo ? 'single' : ''}"><span>TIPO</span>${tempo ? '<span>SEG</span>' : `<span>${wUnit().toUpperCase()}</span><span>REPS</span>`}<span></span></div>
+            ${rows}
+            <button type="button" class="btn-secondary ew-add" onclick="editDraftAddSet(${ei})">+ Série</button>
+          </div>`;
+      }).join('');
+
+      document.getElementById('editWorkoutBody').innerHTML = `
+        <div class="form-group">
+          <label>Nome</label>
+          <input type="text" class="form-control" value="${escapeHtml(d.planName)}" onchange="appState.editDraft.planName = this.value">
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label>Data e hora</label>
+            <input type="datetime-local" class="form-control" value="${toLocalInput(d.date)}" onchange="appState.editDraft.date = new Date(this.value).toISOString()">
+          </div>
+          <div class="form-group">
+            <label>Minutos</label>
+            <input type="number" class="form-control" inputmode="numeric" value="${d.durationMin || 0}" onchange="appState.editDraft.durationMin = parseInt(this.value, 10) || 0">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Observação do treino</label>
+          <input type="text" class="form-control" value="${escapeHtml(d.note || '')}" placeholder="Opcional" onchange="appState.editDraft.note = this.value.trim()">
+        </div>
+        ${exHtml || '<div class="empty-state">Nenhum exercício.</div>'}
+        <div class="ew-add-ex">
+          <input type="text" id="ewNewExercise" class="form-control" list="exerciseLibraryList" placeholder="Adicionar exercício…">
+          <button type="button" class="btn-secondary" onclick="editDraftAddExercise()">Adicionar</button>
+        </div>`;
+    }
+
+    function editDraftSet(ei, si, field, value) {
+      const st = appState.editDraft.exercises[ei].sets[si];
+      if (field === 'kind') { if (value === 'normal') delete st.kind; else st.kind = value; return; }
+      if (field === 'kg') st.kg = fromW(value);
+      else st[field] = parseInt(value, 10) || 0;
+    }
+    function editDraftAddSet(ei) {
+      const sets = appState.editDraft.exercises[ei].sets;
+      const last = sets[sets.length - 1] || { kg: 0, reps: 10, secs: 30 };
+      sets.push({ kg: last.kg || 0, reps: last.reps || 0, secs: last.secs || 0, done: true });
+      renderEditWorkout();
+    }
+    function editDraftRemoveSet(ei, si) {
+      appState.editDraft.exercises[ei].sets.splice(si, 1);
+      renderEditWorkout();
+    }
+    function editDraftRemoveExercise(ei) {
+      appState.editDraft.exercises.splice(ei, 1);
+      renderEditWorkout();
+    }
+    function editDraftAddExercise() {
+      const name = document.getElementById('ewNewExercise').value.trim();
+      if (!name) return;
+      const info = getExerciseInfo(name);
+      appState.editDraft.exercises.push({ name, muscle: info.muscle, type: info.type,
+        sets: [{ kg: 0, reps: info.type === 'tempo' ? 0 : 10, secs: info.type === 'tempo' ? 30 : 0, done: true }] });
+      renderEditWorkout();
+    }
+
+    function saveEditWorkout() {
+      const d = appState.editDraft;
+      d.exercises = d.exercises.filter(ex => ex.sets.length > 0);
+      const idx = appState.history.findIndex(h => h.id === d.id);
+      if (idx === -1) return;
+      appState.history[idx] = d;
+      appState.editDraft = null;
+      normalizeData();
+      rebuildPRs();
+      saveState('history');
+      closeModal('modalEditWorkout');
+      renderHistoryTab();
+      renderTodayTab();
     }
 
     function deleteHistoryRecord(id) {
@@ -3114,7 +3812,12 @@
        GRÁFICOS SVG — linha no tempo e colunas. Toque/arraste mostra o valor.
        Uma série por gráfico (o peso usa duas, com legenda); um único eixo y.
     ===================================================================== */
-    const CHART = { accent: '#10b981', blue: '#3b82f6', grid: '#1e293b', text: '#94a3b8', strong: '#f3f4f6', surface: '#131b2e' };
+    const CHART = {};
+    function refreshChartColors() {
+      const css = getComputedStyle(document.documentElement);
+      const v = name => css.getPropertyValue(name).trim();
+      Object.assign(CHART, { accent: '#10b981', blue: '#3b82f6', grid: v('--chart-grid'), text: v('--text-muted'), strong: v('--text'), surface: v('--surface') });
+    }
 
     function niceTicks(min, max, count) {
       const span = max - min || 1;
@@ -3176,6 +3879,7 @@
 
     // series: [{ name, color, points: [{ x: Date, y, ... }], line, dots, area }]; a 1ª série recebe rótulo final e toque
     function lineChart(el, { series, target, unit = '', tooltip, height = 180, ariaLabel = '' }) {
+      refreshChartColors();
       const all = series.flatMap(sr => sr.points);
       if (!all.length) { chartEmpty(el, 'Sem dados no período.'); return; }
       const W = 340, H = height, padL = 34, padR = 14, padT = 18, padB = 22;
@@ -3229,6 +3933,7 @@
 
     // bars: [{ label, value, partial, tip }]; meta opcional como linha tracejada
     function barChart(el, { bars, goal, goalLabel, format = v => formatKg(v), height = 170, ariaLabel = '' }) {
+      refreshChartColors();
       if (!bars.length) { chartEmpty(el, 'Sem dados no período.'); return; }
       const W = 340, H = height, padL = 30, padR = 8, padT = 20, padB = 22;
       const max = Math.max(...bars.map(b => b.value), goal || 0, 1);
@@ -3342,7 +4047,7 @@
       const tiles = [
         ['Treinos', String(list.length), `${formatNumberBR(perWeek, 1)} por semana (meta ${getWeeklyGoal()})`],
         ['Séries de trabalho', String(totals.sets), list.length ? `${Math.round(totals.sets / list.length)} por treino` : '—'],
-        ['Volume levantado', `${formatNumberBR(totals.volume / 1000, 1)} t`, 'carga × reps, sem aquecimento'],
+        ['Volume levantado', fmtVolume(totals.volume), 'carga × reps, sem aquecimento'],
         ['Tempo treinando', `${formatNumberBR(totals.min / 60, 1)} h`, list.length ? `${Math.round(totals.min / list.length)} min por treino` : '—']
       ];
       document.getElementById('evoKpis').innerHTML = tiles.map(([label, value, sub]) => `
@@ -3384,7 +4089,7 @@
 
     function renderWeeklyChart(rerender) {
       const metric = renderSeg('weeklyMetricSeg', 'weeklyMetric', [['count', 'Treinos'], ['sets', 'Séries'], ['volume', 'Volume']], 'count', rerender);
-      const titles = { count: 'Treinos por semana', sets: 'Séries por semana', volume: 'Volume por semana (t)' };
+      const titles = { count: 'Treinos por semana', sets: 'Séries por semana', volume: `Volume por semana (${wUnit() === 'lb' ? 'mil lb' : 't'})` };
       document.getElementById('weeklyTitle').textContent = titles[metric];
 
       const currentWeek = weekStart(new Date());
@@ -3402,7 +4107,7 @@
         const k = weekStart(h.date).getTime();
         const st = workoutStats(h);
         const acc = byWeek[k] || (byWeek[k] = { count: 0, sets: 0, volume: 0 });
-        acc.count += 1; acc.sets += st.sets; acc.volume += st.volume / 1000;
+        acc.count += 1; acc.sets += st.sets; acc.volume += toW(st.volume) / 1000;
       });
       const fmt = v => metric === 'volume' ? formatNumberBR(v, 1) : String(Math.round(v));
       const bars = recent.map(ws => {
@@ -3413,7 +4118,7 @@
           label: shortDate(ws),
           value: acc[metric],
           partial,
-          tip: `${shortDate(ws)} a ${shortDate(end)}${partial ? ' (em andamento)' : ''}<br><strong>${fmt(acc[metric])} ${metric === 'count' ? (acc.count === 1 ? 'treino' : 'treinos') : metric === 'sets' ? 'séries' : 't'}</strong>`
+          tip: `${shortDate(ws)} a ${shortDate(end)}${partial ? ' (em andamento)' : ''}<br><strong>${fmt(acc[metric])} ${metric === 'count' ? (acc.count === 1 ? 'treino' : 'treinos') : metric === 'sets' ? 'séries' : (wUnit() === 'lb' ? 'mil lb' : 't')}</strong>`
         };
       });
       barChart(document.getElementById('weeklyChartBox'), {
@@ -3455,14 +4160,14 @@
         segBox.innerHTML = '';
       }
       const subs = {
-        e1rm: '1RM estimado da melhor série de cada treino (kg)',
-        max: 'Maior carga usada em cada treino (kg)',
-        vol: 'Volume do exercício em cada treino (kg × reps)',
+        e1rm: `1RM estimado da melhor série de cada treino (${wUnit()})`,
+        max: `Maior carga usada em cada treino (${wUnit()})`,
+        vol: `Volume do exercício em cada treino (${wUnit()} × reps)`,
         corporal: 'Mais repetições numa série, por treino',
         tempo: 'Maior tempo numa série, por treino (segundos)'
       };
       document.getElementById('exerciseChartSub').textContent = subs[metric];
-      const unit = { e1rm: 'kg', max: 'kg', vol: 'kg', corporal: '', tempo: 's' }[metric];
+      const unit = { e1rm: wUnit(), max: wUnit(), vol: wUnit(), corporal: '', tempo: 's' }[metric];
 
       const points = [];
       appState.history.filter(h => inPeriod(h.date)).forEach(h => {
@@ -3476,12 +4181,13 @@
         else if (metric === 'vol') y = volumeOf({ ...ex, type: 'carga' });
         else if (metric === 'tempo') y = Math.max(...sets.map(st => parseInt(st.secs, 10) || 0));
         else y = Math.max(...sets.map(st => parseInt(st.reps, 10) || 0));
+        if (['e1rm', 'max', 'vol'].includes(metric)) y = toW(y);
         if (y > 0) points.push({ x: parseDate(h.date), y: Math.round(y * 10) / 10, top, sets: sets.length });
       });
 
       const pr = appState.prs[exName];
       if (type === 'carga') {
-        prBadge.textContent = pr ? `Recorde: ${formatKg(pr.kg)} kg • 1RM est. ${formatKg(Math.round(pr.e1rm))} kg` : 'Recorde: --';
+        prBadge.textContent = pr ? `Recorde: ${fmtW(pr.kg)} • 1RM est. ${fmtW(pr.e1rm, true)}` : 'Recorde: --';
       } else {
         prBadge.textContent = pr && pr.bestSet ? `Recorde: ${setLabel(pr.bestSet, type)}` : 'Recorde: --';
       }
@@ -3516,12 +4222,12 @@
         if (data.type && data.type !== 'carga') {
           item.innerHTML = `
             <div>
-              <div style="font-weight: 700; font-size: 0.95rem; color: #fff;">${escapeHtml(name)}</div>
+              <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-strong);">${escapeHtml(name)}</div>
               <div style="font-size: 0.72rem; color: var(--text-muted);">${TYPE_LABELS[data.type]} • ${formatDateBR(data.bestDate)}</div>
             </div>
             <div style="text-align: right;">
               <div style="font-size: 0.65rem; color: var(--text-muted); font-weight: 700;">MELHOR</div>
-              <div style="font-size: 1.25rem; font-weight: 800; color: #f59e0b;">${setLabel(data.bestSet, data.type)}</div>
+              <div style="font-size: 1.25rem; font-weight: 800; color: var(--amber-strong);">${setLabel(data.bestSet, data.type)}</div>
             </div>`;
           container.appendChild(item);
           return;
@@ -3529,15 +4235,15 @@
         const sameSet = data.e1rmKg === data.kg && data.e1rmReps === data.reps;
         item.innerHTML = `
           <div>
-            <div style="font-weight: 700; font-size: 0.95rem; color: #fff;">${escapeHtml(name)}</div>
+            <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-strong);">${escapeHtml(name)}</div>
             <div style="font-size: 0.72rem; color: var(--text-muted);">
-              Maior carga: ${formatKg(data.kg)}kg × ${data.reps} em ${formatDateBR(data.date)}
-              ${sameSet ? '' : `<br>Melhor série: ${formatKg(data.e1rmKg)}kg × ${data.e1rmReps} em ${formatDateBR(data.e1rmDate)}`}
+              Maior carga: ${fmtW(data.kg)} × ${data.reps} em ${formatDateBR(data.date)}
+              ${sameSet ? '' : `<br>Melhor série: ${fmtW(data.e1rmKg)} × ${data.e1rmReps} em ${formatDateBR(data.e1rmDate)}`}
             </div>
           </div>
           <div style="text-align: right;">
             <div style="font-size: 0.65rem; color: var(--text-muted); font-weight: 700;">1RM EST.</div>
-            <div style="font-size: 1.25rem; font-weight: 800; color: #f59e0b;">${formatKg(Math.round(data.e1rm))} <span style="font-size:0.8rem;">kg</span></div>
+            <div style="font-size: 1.25rem; font-weight: 800; color: var(--amber-strong);">${formatKg(Math.round(toW(data.e1rm)))} <span style="font-size:0.8rem;">${wUnit()}</span></div>
           </div>
         `;
         container.appendChild(item);
@@ -3552,6 +4258,7 @@
       updateTargetWeightUI();
       renderWeightTrendChart();
       renderMeasureDeltas();
+      renderPhotos();
       renderMeasuresList();
     }
 
@@ -3561,7 +4268,7 @@
         const t = parseDate(m.date);
         const from = new Date(t); from.setDate(from.getDate() - (days - 1));
         const win = sortedAsc.filter(o => { const d = parseDate(o.date); return d >= from && d <= t; });
-        return { x: t, y: win.reduce((a, o) => a + parseFloat(o.weight), 0) / win.length, n: win.length };
+        return { x: t, y: toW(win.reduce((a, o) => a + parseFloat(o.weight), 0) / win.length), n: win.length };
       });
     }
 
@@ -3584,19 +4291,217 @@
       return { perWeek: slope * 7, fitted, lastDate: parseDate(sample[sample.length - 1].date), days: lastX, n: sample.length };
     }
 
+    /* =====================================================================
+       FOTOS DE PROGRESSO — IndexedDB (fotos são grandes demais para o localStorage)
+    ===================================================================== */
+    const POSES = { frente: 'Frente', lado: 'Lado', costas: 'Costas' };
+    const photoUrls = {};
+
+    function photoDb() {
+      return new Promise((resolve, reject) => {
+        const req = indexedDB.open('gymtrack-fotos', 1);
+        req.onupgradeneeded = () => req.result.createObjectStore('photos', { keyPath: 'id' });
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    async function photoTx(mode, fn) {
+      const db = await photoDb();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction('photos', mode);
+        const req = fn(tx.objectStore('photos'));
+        tx.oncomplete = () => resolve(req && 'result' in req ? req.result : undefined);
+        tx.onerror = () => reject(tx.error);
+      });
+    }
+
+    async function getAllPhotos() {
+      try {
+        const list = await photoTx('readonly', st => st.getAll());
+        return (list || []).sort((a, b) => b.date.localeCompare(a.date) || Object.keys(POSES).indexOf(a.pose) - Object.keys(POSES).indexOf(b.pose));
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function photoUrl(p) {
+      if (!photoUrls[p.id]) photoUrls[p.id] = URL.createObjectURL(p.blob);
+      return photoUrls[p.id];
+    }
+
+    // Reduz para no máximo 1280 px (JPEG 82%): ~200–400 KB por foto
+    async function compressImage(file) {
+      let source;
+      try {
+        source = await createImageBitmap(file, { imageOrientation: 'from-image' });
+      } catch (e) {
+        source = await new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => resolve(img);
+          img.onerror = reject;
+          img.src = URL.createObjectURL(file);
+        });
+      }
+      const scale = Math.min(1, 1280 / Math.max(source.width, source.height));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.round(source.width * scale);
+      canvas.height = Math.round(source.height * scale);
+      canvas.getContext('2d').drawImage(source, 0, 0, canvas.width, canvas.height);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.82));
+      return { blob, w: canvas.width, h: canvas.height };
+    }
+
+    async function onPhotoChosen(input) {
+      const file = input.files && input.files[0];
+      input.value = '';
+      if (!file) return;
+      let img;
+      try {
+        img = await compressImage(file);
+      } catch (e) {
+        showDialog({ title: 'Não foi possível abrir a foto', body: 'Tente outra imagem.' });
+        return;
+      }
+      const preview = URL.createObjectURL(img.blob);
+      showDialog({
+        title: 'Nova foto de progresso',
+        body: `<img src="${preview}" class="photo-preview" alt="">
+          <div class="form-grid-2" style="margin-top:12px;">
+            <div class="form-group"><label for="photoPose">Ângulo</label>
+              <select id="photoPose" class="form-control">${Object.entries(POSES).map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select></div>
+            <div class="form-group"><label for="photoDate">Data</label>
+              <input type="date" id="photoDate" class="form-control" value="${todayISO()}" max="${todayISO()}"></div>
+          </div>`,
+        actions: [
+          { label: 'Salvar foto', style: 'primary', onClick: async () => {
+            const record = {
+              id: 'foto_' + Date.now(),
+              date: document.getElementById('photoDate').value || todayISO(),
+              pose: document.getElementById('photoPose').value,
+              blob: img.blob, w: img.w, h: img.h
+            };
+            URL.revokeObjectURL(preview);
+            try {
+              await photoTx('readwrite', st => st.put(record));
+            } catch (e) {
+              showDialog({ title: 'Sem espaço para salvar', body: 'O aparelho recusou guardar a foto. Libere espaço ou apague fotos antigas.' });
+              return;
+            }
+            renderPhotos();
+          } },
+          { label: 'Cancelar', style: 'secondary', onClick: () => URL.revokeObjectURL(preview) }
+        ]
+      });
+    }
+
+    async function renderPhotos() {
+      const grid = document.getElementById('photoGrid');
+      if (!grid) return;
+      const list = await getAllPhotos();
+      document.getElementById('btnComparePhotos').style.display = list.length >= 2 ? '' : 'none';
+      if (!list.length) {
+        grid.innerHTML = '<div class="empty-state" style="grid-column: 1 / -1; padding: 12px;">Nenhuma foto ainda.</div>';
+        return;
+      }
+      grid.innerHTML = list.map(p => `
+        <button type="button" class="photo-thumb" onclick="openPhoto('${p.id}')">
+          <img src="${photoUrl(p)}" alt="Foto de ${POSES[p.pose]} em ${formatDateBR(p.date)}" loading="lazy">
+          <span>${formatDateBR(p.date).slice(0, 5)} • ${POSES[p.pose]}</span>
+        </button>`).join('');
+    }
+
+    async function openPhoto(id) {
+      const list = await getAllPhotos();
+      const p = list.find(x => x.id === id);
+      if (!p) return;
+      showDialog({
+        title: `${POSES[p.pose]} — ${formatDateBR(p.date)}`,
+        body: `<img src="${photoUrl(p)}" class="photo-full" alt="">`,
+        actions: [
+          { label: 'Fechar', style: 'primary' },
+          { label: 'Excluir foto', style: 'danger', onClick: () => confirmDeletePhoto(p) }
+        ]
+      });
+    }
+
+    function confirmDeletePhoto(p) {
+      showDialog({
+        title: 'Excluir foto?',
+        body: `Foto de ${POSES[p.pose].toLowerCase()} de ${formatDateBR(p.date)}. Não dá para desfazer (a não ser por um backup com fotos).`,
+        actions: [
+          { label: 'Excluir', style: 'danger', onClick: async () => {
+            await photoTx('readwrite', st => st.delete(p.id));
+            if (photoUrls[p.id]) { URL.revokeObjectURL(photoUrls[p.id]); delete photoUrls[p.id]; }
+            renderPhotos();
+          } },
+          { label: 'Cancelar', style: 'secondary' }
+        ]
+      });
+    }
+
+    // Comparação lado a lado: mesmo ângulo, duas datas (padrão: a primeira e a mais recente)
+    async function openPhotoCompare() {
+      const list = await getAllPhotos();
+      const poses = Object.keys(POSES).filter(k => list.filter(p => p.pose === k).length >= 1);
+      const pose = poses.find(k => list.filter(p => p.pose === k).length >= 2) || poses[0];
+      showDialog({
+        title: 'Comparar fotos',
+        body: `<div class="form-group"><label for="cmpPose">Ângulo</label>
+            <select id="cmpPose" class="form-control" onchange="fillCompareDates()">${poses.map(k => `<option value="${k}" ${k === pose ? 'selected' : ''}>${POSES[k]}</option>`).join('')}</select></div>
+          <div class="compare-grid">
+            <div><select id="cmpA" class="form-control" onchange="drawCompare()"></select><img id="cmpImgA" alt=""></div>
+            <div><select id="cmpB" class="form-control" onchange="drawCompare()"></select><img id="cmpImgB" alt=""></div>
+          </div>`,
+        actions: [{ label: 'Fechar', style: 'primary' }]
+      });
+      appState.compareList = list;
+      fillCompareDates();
+    }
+
+    function fillCompareDates() {
+      const pose = document.getElementById('cmpPose').value;
+      const items = appState.compareList.filter(p => p.pose === pose).sort((a, b) => a.date.localeCompare(b.date));
+      const opts = items.map(p => `<option value="${p.id}">${formatDateBR(p.date)}</option>`).join('');
+      document.getElementById('cmpA').innerHTML = opts;
+      document.getElementById('cmpB').innerHTML = opts;
+      if (items.length) {
+        document.getElementById('cmpA').value = items[0].id;
+        document.getElementById('cmpB').value = items[items.length - 1].id;
+      }
+      drawCompare();
+    }
+
+    function drawCompare() {
+      ['A', 'B'].forEach(k => {
+        const p = appState.compareList.find(x => x.id === document.getElementById('cmp' + k).value);
+        const img = document.getElementById('cmpImg' + k);
+        if (p) img.src = photoUrl(p); else img.removeAttribute('src');
+      });
+    }
+
+    function blobToDataUrl(blob) {
+      return new Promise(resolve => {
+        const r = new FileReader();
+        r.onload = () => resolve(r.result);
+        r.readAsDataURL(blob);
+      });
+    }
+
     function renderMeasureDeltas() {
       const card = document.getElementById('measureDeltasCard');
       const asc = [...appState.measures].sort((a, b) => parseDate(a.date) - parseDate(b.date));
-      const fields = [['weight', 'Peso', 'kg'], ['cintura', 'Cintura', 'cm'], ['peito', 'Peito', 'cm'], ['braco', 'Braço', 'cm'], ['quadril', 'Quadril', 'cm'], ['coxa', 'Coxa', 'cm']];
+      const fields = [['weight', 'Peso', wUnit()], ['cintura', 'Cintura', 'cm'], ['peito', 'Peito', 'cm'], ['braco', 'Braço', 'cm'], ['quadril', 'Quadril', 'cm'], ['coxa', 'Coxa', 'cm']];
       const items = fields.map(([f, label, unit]) => {
         const withValue = asc.filter(m => parseFloat(m[f]) > 0);
         if (withValue.length < 2) return null;
         const first = withValue[0], last = withValue[withValue.length - 1];
-        const delta = parseFloat(last[f]) - parseFloat(first[f]);
+        const conv = v => f === 'weight' ? toW(v) : parseFloat(v);
+        const delta = conv(last[f]) - conv(first[f]);
         const sign = delta > 0 ? '+' : delta < 0 ? '−' : '';
         return `<div class="delta-item"><div class="label">${label}</div>
           <div class="value">${sign}${formatNumberBR(Math.abs(delta), 1)} ${unit}</div>
-          <div class="sub">${formatNumberBR(parseFloat(first[f]), 1)} → ${formatNumberBR(parseFloat(last[f]), 1)}</div></div>`;
+          <div class="sub">${formatNumberBR(conv(first[f]), 1)} → ${formatNumberBR(conv(last[f]), 1)}</div></div>`;
       }).filter(Boolean);
       card.hidden = items.length === 0;
       if (!items.length) return;
@@ -3609,17 +4514,18 @@
       const legend = document.getElementById('weightLegend');
       const p = appState.profile;
       const targetKg = p && p.targetWeight > 0 ? p.targetWeight : null;
-      document.getElementById('weightChartTitle').textContent = 'Peso (kg)';
+      document.getElementById('weightChartTitle').textContent = `Peso (${wUnit()})`;
 
       const asc = [...appState.measures].sort((a, b) => parseDate(a.date) - parseDate(b.date));
       const avg = movingAverage(asc, 7).filter(pt => inPeriod(pt.x));
-      const raw = asc.filter(m => inPeriod(m.date)).map(m => ({ x: parseDate(m.date), y: parseFloat(m.weight), m }));
+      const raw = asc.filter(m => inPeriod(m.date)).map(m => ({ x: parseDate(m.date), y: toW(m.weight), m }));
       if (!raw.length) {
         legend.innerHTML = '';
         chartEmpty(container, appState.measures.length ? 'Sem pesagens neste período.' : 'Registre seu peso em “+ Nova Medida” para ver o gráfico.');
         return;
       }
       const showAvg = avg.some(pt => pt.n > 1);
+      refreshChartColors();
       legend.innerHTML = `<span><i class="key-dot" style="background:${CHART.blue}"></i>Pesagem</span>` +
         (showAvg ? `<span><i class="key-line" style="background:${CHART.accent}"></i>Média de 7 dias</span>` : '') +
         (targetKg ? `<span><i class="key-line" style="background:repeating-linear-gradient(90deg, ${CHART.accent} 0 4px, transparent 4px 7px)"></i>Meta</span>` : '');
@@ -3627,12 +4533,12 @@
       if (showAvg) series.push({ name: 'Média de 7 dias', color: CHART.accent, points: avg, dots: false });
       lineChart(container, {
         series,
-        target: targetKg ? { y: targetKg, label: `meta ${formatKg(targetKg)}` } : null,
+        target: targetKg ? { y: toW(targetKg), label: `meta ${formatKg(toW(targetKg))}` } : null,
         unit: '',
         ariaLabel: 'Evolução do peso',
         tooltip: pt => {
           const a = avg.find(o => +o.x === +pt.x);
-          return `${formatDateBR(pt.x)}<br><strong>${formatNumberBR(pt.y, 1)} kg</strong>${a && a.n > 1 ? `<br>Média 7 dias: ${formatNumberBR(a.y, 1)} kg` : ''}`;
+          return `${formatDateBR(pt.x)}<br><strong>${formatNumberBR(pt.y, 1)} ${wUnit()}</strong>${a && a.n > 1 ? `<br>Média 7 dias: ${formatNumberBR(a.y, 1)} ${wUnit()}` : ''}`;
         }
       });
     }
@@ -3655,17 +4561,17 @@
 
         card.innerHTML = `
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-            <span style="font-weight:700; color:#fff;">${formatDateBR(m.date)}</span>
+            <span style="font-weight:700; color:var(--text-strong);">${formatDateBR(m.date)}</span>
             <span style="display:flex; align-items:center; gap:10px;">
-              <span style="font-size:1.15rem; font-weight:800; color:#38bdf8;">${formatNumberBR(m.weight, 1)} kg</span>
+              <span style="font-size:1.15rem; font-weight:800; color:var(--sky-text);">${fmtBody(m.weight)}</span>
               <button type="button" class="notice-close" aria-label="Excluir medição" onclick="deleteMeasure('${m.id}')">×</button>
             </span>
           </div>
-          <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:6px; font-size:0.75rem; color:var(--text-muted); background:rgba(0,0,0,0.2); padding:6px 10px; border-radius:8px;">
-            <div>Cintura: <strong style="color:#fff;">${m.cintura || '--'}cm</strong></div>
-            <div>Peito: <strong style="color:#fff;">${m.peito || '--'}cm</strong></div>
-            <div>Braço: <strong style="color:#fff;">${m.braco || '--'}cm</strong></div>
-            <div>Coxa: <strong style="color:#fff;">${m.coxa || '--'}cm</strong></div>
+          <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:6px; font-size:0.75rem; color:var(--text-muted); background:var(--inset); padding:6px 10px; border-radius:8px;">
+            <div>Cintura: <strong style="color:var(--text-strong);">${m.cintura || '--'}cm</strong></div>
+            <div>Peito: <strong style="color:var(--text-strong);">${m.peito || '--'}cm</strong></div>
+            <div>Braço: <strong style="color:var(--text-strong);">${m.braco || '--'}cm</strong></div>
+            <div>Coxa: <strong style="color:var(--text-strong);">${m.coxa || '--'}cm</strong></div>
           </div>
         `;
         list.appendChild(card);
@@ -3693,7 +4599,7 @@
       if (!m) return;
       showDialog({
         title: 'Excluir medição?',
-        body: `Medição de <strong>${formatDateBR(m.date)}</strong> (${formatNumberBR(m.weight, 1)} kg).`,
+        body: `Medição de <strong>${formatDateBR(m.date)}</strong> (${fmtBody(m.weight)}).`,
         actions: [
           { label: 'Excluir', style: 'danger', onClick: () => {
             appState.measures = appState.measures.filter(x => x.id !== id);
@@ -3711,7 +4617,8 @@
       const last = getLatestMeasure() || {};
       document.getElementById('measureDateInput').value = todayISO();
       document.getElementById('measureDateInput').max = todayISO();
-      document.getElementById('measureWeightInput').value = last.weight || '';
+      document.getElementById('measureWeightInput').value = last.weight ? toW(last.weight) : '';
+      document.getElementById('measureWeightLabel').textContent = `Peso (${wUnit()}) *`;
       document.getElementById('measureCintura').value = last.cintura || '';
       document.getElementById('measurePeito').value = last.peito || '';
       document.getElementById('measureBraco').value = last.braco || '';
@@ -3722,7 +4629,7 @@
 
     function saveNewMeasurement(e) {
       e.preventDefault();
-      const weight = parseFloat(document.getElementById('measureWeightInput').value);
+      const weight = fromW(document.getElementById('measureWeightInput').value);
       if (!weight || isNaN(weight)) {
         alert('Informe o peso corretamente.');
         return;
@@ -3742,6 +4649,10 @@
       appState.measures.unshift(newMeasure);
       normalizeData();
       saveState('measures');
+      // Só envia ao Saúde a pesagem de hoje (o atalho grava com a data atual)
+      if (appState.profile && appState.profile.healthSync && newMeasure.date === todayISO()) {
+        setTimeout(() => sendWeightToHealth(newMeasure.weight), 300);
+      }
 
       closeModal('modalAddMeasure');
       renderMeasurementsTab();
@@ -3795,11 +4706,13 @@
       const p = appState.profile || guessLegacyProfile();
       document.getElementById('profName').value = p.name || '';
       document.getElementById('profHeight').value = p.height || '';
-      document.getElementById('profStartWeight').value = p.startWeight || '';
-      document.getElementById('profTargetWeight').value = p.targetWeight || '';
+      document.getElementById('profUnit').value = p.unit || 'kg';
+      document.getElementById('profTheme').value = p.theme || 'dark';
+      fillProfileWeights(p);
       document.getElementById('profTargetDate').value = p.targetDate || '';
       document.getElementById('profWeeklyGoal').value = String(p.weeklyGoal || 3);
       document.getElementById('profRest').value = String(p.restSec || 90);
+      document.getElementById('profTrackRir').checked = !!p.trackRir;
 
       document.getElementById('settingsTitle').textContent = welcome ? 'Bem-vindo ao GymTrack 💪' : 'Perfil e Metas';
       document.getElementById('settingsIntro').textContent = welcome
@@ -3809,8 +4722,47 @@
       document.getElementById('settingsCloseBtn').textContent = welcome ? 'Agora não' : 'Fechar';
       document.getElementById('installSection').style.display = isStandalone() ? 'none' : '';
       document.getElementById('appVersionText').textContent = `GymTrack ${APP_VERSION}`;
+      document.getElementById('profHealthSync').checked = !!(appState.profile && appState.profile.healthSync);
       updateBackupStatus();
       openModal('modalSettings');
+    }
+
+    // Tema: 'auto' acompanha o iPhone; 'dark'/'light' fixam. Redesenha gráficos com as novas cores.
+    function applyTheme(theme) {
+      // Sem escolha salva, fica escuro (o visual original); "auto" acompanha o iPhone
+      document.documentElement.dataset.theme = ['auto', 'light'].includes(theme) ? theme : 'dark';
+      const active = document.querySelector('.tab-content.active');
+      if (active && (active.id === 'tab-evolution' || active.id === 'tab-measurements')) {
+        active.id === 'tab-evolution' ? renderEvolutionTab() : renderMeasurementsTab();
+      }
+    }
+
+    // Os campos de peso do Perfil seguem a unidade escolhida no próprio formulário
+    function fillProfileWeights(p) {
+      const lb = document.getElementById('profUnit').value === 'lb';
+      const show = kg => kg ? (lb ? Math.round(kg / LB * 10) / 10 : kg) : '';
+      document.getElementById('profStartWeight').value = show(p.startWeight);
+      document.getElementById('profTargetWeight').value = show(p.targetWeight);
+      document.getElementById('profStartLabel').textContent = `Peso inicial (${lb ? 'lb' : 'kg'})`;
+      document.getElementById('profTargetLabel').textContent = `Peso meta (${lb ? 'lb' : 'kg'})`;
+    }
+
+    function onProfileUnitChange() {
+      // Converte o que já está digitado para a nova unidade
+      const lb = document.getElementById('profUnit').value === 'lb';
+      ['profStartWeight', 'profTargetWeight'].forEach(id => {
+        const el = document.getElementById(id);
+        const v = parseFloat(el.value);
+        if (v) el.value = lb ? Math.round(v / LB * 10) / 10 : Math.round(v * LB * 10) / 10;
+      });
+      document.getElementById('profStartLabel').textContent = `Peso inicial (${lb ? 'lb' : 'kg'})`;
+      document.getElementById('profTargetLabel').textContent = `Peso meta (${lb ? 'lb' : 'kg'})`;
+    }
+
+    function weightFromProfileInput(id) {
+      const v = parseFloat(document.getElementById(id).value);
+      if (!v) return null;
+      return document.getElementById('profUnit').value === 'lb' ? Math.round(v * LB * 100) / 100 : v;
     }
 
     // A versão anterior tinha estes valores fixos no código; servem só como sugestão inicial
@@ -3827,16 +4779,59 @@
       appState.profile = {
         name: document.getElementById('profName').value.trim(),
         height: num('profHeight'),
-        startWeight: num('profStartWeight'),
-        targetWeight: num('profTargetWeight'),
+        unit: document.getElementById('profUnit').value,
+        theme: document.getElementById('profTheme').value,
+        startWeight: weightFromProfileInput('profStartWeight'),
+        targetWeight: weightFromProfileInput('profTargetWeight'),
         targetDate: document.getElementById('profTargetDate').value || null,
         weeklyGoal: parseInt(document.getElementById('profWeeklyGoal').value, 10) || 3,
-        restSec: parseInt(document.getElementById('profRest').value, 10) || 90
+        restSec: parseInt(document.getElementById('profRest').value, 10) || 90,
+        trackRir: document.getElementById('profTrackRir').checked,
+        healthSync: document.getElementById('profHealthSync').checked
       };
       saveState('profile');
       closeModal('modalSettings');
-      renderTodayTab();
-      renderMeasurementsTab();
+      applyTheme(appState.profile.theme);
+      renderAll();
+    }
+
+    /* =====================================================================
+       APPLE SAÚDE — um app web não acessa o HealthKit. A ponte é um atalho do app
+       Atalhos chamado "GymTrack Peso", que recebe o peso em kg e grava no Saúde.
+    ===================================================================== */
+    const HEALTH_SHORTCUT = 'GymTrack Peso';
+
+    function toggleHealthSync(on) {
+      if (on) showHealthHelp();
+    }
+
+    function showHealthHelp() {
+      showDialog({
+        title: 'Peso no Apple Saúde',
+        body: `Crie o atalho uma vez no app <strong>Atalhos</strong>:
+          <ol class="steps">
+            <li>Toque em <strong>+</strong> e dê o nome <strong>${HEALTH_SHORTCUT}</strong> (exatamente assim).</li>
+            <li>Adicione a ação <strong>Obter Números da Entrada</strong>.</li>
+            <li>Adicione <strong>Registrar Amostra de Saúde</strong>: Tipo <em>Peso</em>, Valor = <em>Números</em>, unidade <em>kg</em>.</li>
+            <li>Volte aqui, ligue a opção, salve o perfil e toque em <strong>Testar</strong>. Na primeira vez, o iPhone pede permissão para o Saúde.</li>
+          </ol>
+          O app envia sempre em kg (mesmo com a tela em lb). Depois de gravar, volte ao GymTrack pelo canto superior esquerdo ou pela Tela de Início.`,
+        actions: [{ label: 'Entendi', style: 'primary' }]
+      });
+    }
+
+    function sendWeightToHealth(kg, isTest) {
+      const value = kg || (getLatestMeasure() && parseFloat(getLatestMeasure().weight));
+      if (!value) {
+        showDialog({ title: 'Sem peso registrado', body: 'Registre uma medição antes de testar.' });
+        return;
+      }
+      const text = String(Math.round(value * 100) / 100);
+      openExternal(`shortcuts://run-shortcut?name=${encodeURIComponent(HEALTH_SHORTCUT)}&input=text&text=${encodeURIComponent(text)}`);
+    }
+
+    function openExternal(url) {
+      window.location.href = url;
     }
 
     /* =====================================================================
@@ -3851,6 +4846,21 @@
     }
 
     async function exportBackup() {
+      const photos = await getAllPhotos();
+      if (!photos.length) { doExportBackup(false); return; }
+      const mb = photos.reduce((a, p) => a + (p.blob ? p.blob.size : 0), 0) / 1048576 * 1.37;
+      showDialog({
+        title: 'Exportar backup',
+        body: `Você tem <strong>${photos.length} ${photos.length === 1 ? 'foto' : 'fotos'}</strong>. Incluir no arquivo deixa o backup com ~${formatNumberBR(Math.max(0.1, mb), 1)} MB.`,
+        actions: [
+          { label: 'Dados + fotos', style: 'primary', onClick: () => doExportBackup(true) },
+          { label: 'Só os dados (arquivo leve)', style: 'secondary', onClick: () => doExportBackup(false) },
+          { label: 'Cancelar', style: 'secondary' }
+        ]
+      });
+    }
+
+    async function doExportBackup(includePhotos) {
       const payload = {
         app: 'GymTrack',
         format: BACKUP_FORMAT,
@@ -3860,10 +4870,15 @@
           history: appState.history,
           measures: appState.measures,
           profile: appState.profile,
-          notes: appState.notes
+          notes: appState.notes,
+          program: appState.program
         }
       };
-      const json = JSON.stringify(payload, null, 2);
+      if (includePhotos) {
+        const photos = await getAllPhotos();
+        payload.photos = await Promise.all(photos.map(async p => ({ id: p.id, date: p.date, pose: p.pose, w: p.w, h: p.h, data: await blobToDataUrl(p.blob) })));
+      }
+      const json = JSON.stringify(payload, null, includePhotos ? 0 : 2);
       const fileName = `gymtrack-backup-${todayISO()}.json`;
       const file = new File([json], fileName, { type: 'application/json' });
 
@@ -3920,10 +4935,10 @@
         showDialog({
           title: 'Restaurar backup?',
           body: `Backup de <strong>${formatDateBR(payload.exportedAt)}</strong> com:
-            <ul><li>${d.history.length} treinos</li><li>${d.measures.length} medições</li><li>${d.plans.length} planos</li></ul>
+            <ul><li>${d.history.length} treinos</li><li>${d.measures.length} medições</li><li>${d.plans.length} planos</li>${payload.photos ? `<li>${payload.photos.length} fotos (substituem as fotos deste aparelho)</li>` : ''}</ul>
             Os dados atuais deste aparelho (${appState.history.length} treinos, ${appState.measures.length} medições) serão <strong>substituídos</strong>.`,
           actions: [
-            { label: 'Substituir pelos dados do backup', style: 'danger', onClick: () => applyBackup(d) },
+            { label: 'Substituir pelos dados do backup', style: 'danger', onClick: () => applyBackup(d, payload.photos) },
             { label: 'Cancelar', style: 'secondary' }
           ]
         });
@@ -3931,12 +4946,24 @@
       reader.readAsText(file);
     }
 
-    function applyBackup(d) {
+    async function restorePhotos(photos) {
+      const records = await Promise.all(photos.map(async p => ({
+        id: p.id, date: p.date, pose: p.pose, w: p.w, h: p.h, blob: await (await fetch(p.data)).blob()
+      })));
+      await photoTx('readwrite', st => { st.clear(); records.forEach(r => st.put(r)); });
+      Object.keys(photoUrls).forEach(k => { URL.revokeObjectURL(photoUrls[k]); delete photoUrls[k]; });
+    }
+
+    async function applyBackup(d, photos) {
+      if (photos) {
+        try { await restorePhotos(photos); } catch (e) { console.error(e); }
+      }
       appState.plans = d.plans;
       appState.history = d.history;
       appState.measures = d.measures;
       appState.profile = d.profile || appState.profile;
       appState.notes = d.notes || {};
+      appState.program = d.program || null;
       appState.meta.mockReviewDone = true;
       normalizeData();
       rebuildPRs();
@@ -3978,6 +5005,15 @@
           text: `A versão anterior criou ${mock.history} treinos e ${mock.measures} medições de exemplo. Eles alteram seus recordes e gráficos.`,
           actions: `<button type="button" class="btn-large" onclick="reviewMockData()">Revisar e remover</button>
                     <button type="button" class="btn-secondary" onclick="keepMockData()">Manter</button>`
+        });
+      }
+
+      const pst = programStatus();
+      if (pst && pst.finished && !snoozed('program')) {
+        notices.push({
+          key: 'program', icon: '🏁', title: `Programa “${escapeHtml(appState.program.name)}” concluído`,
+          text: 'Veja sua evolução na aba Evolução e comece um novo ciclo quando quiser.',
+          actions: `<button type="button" class="btn-secondary" onclick="openProgramModal()">Novo ciclo</button>`
         });
       }
 
@@ -4036,7 +5072,7 @@
       const mockMeasures = appState.measures.filter(isMockMeasure);
       const items = [
         ...mockHistory.map(h => `<li>Treino ${escapeHtml(h.planName)} — ${formatDateBR(h.date)}</li>`),
-        ...mockMeasures.map(m => `<li>Medição ${formatNumberBR(m.weight, 1)} kg — ${formatDateBR(m.date)}</li>`)
+        ...mockMeasures.map(m => `<li>Medição ${fmtBody(m.weight)} — ${formatDateBR(m.date)}</li>`)
       ].join('');
       showDialog({
         title: 'Remover dados de exemplo?',
@@ -4086,6 +5122,10 @@
     ===================================================================== */
     document.addEventListener('DOMContentLoaded', () => {
       loadState();
+      applyTheme(appState.profile && appState.profile.theme);
+      // Fechar o Perfil sem salvar desfaz a prévia do tema
+      document.getElementById('settingsCloseBtn').addEventListener('click', () => applyTheme(appState.profile && appState.profile.theme));
+      window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => applyTheme(appState.profile && appState.profile.theme));
       document.getElementById('exerciseLibraryList').innerHTML = EXERCISE_LIBRARY.map(e => `<option value="${escapeHtml(e.name)}">`).join('');
       renderTodayTab();
 
