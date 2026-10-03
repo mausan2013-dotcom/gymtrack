@@ -1,6 +1,6 @@
 // GymTrack — service worker: deixa o app abrir offline (academia sem sinal).
 // Estratégia: rede primeiro (pega a versão nova quando há internet), cache como reserva.
-const CACHE = 'gymtrack-20261002230920';
+const CACHE = 'gymtrack-20261002232021';
 const ARQUIVOS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', (e) => {

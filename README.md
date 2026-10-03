@@ -29,14 +29,23 @@
 - Tela sempre acesa durante o treino (iOS 16.4+)
 - Recordes por tipo (1RM estimado, reps ou segundos); notas entram no backup
 
+## Versão 2.2 — etapa 3 (02/10/2026)
+- Filtro de período (4 sem, 3 meses, 1 ano, tudo), compartilhado entre Evolução e Medidas
+- Resumo do período: treinos (e média por semana), séries de trabalho, volume e tempo treinando
+- Séries semanais por grupo muscular, com faixa de referência de 10–20 séries (esta semana ou média do período)
+- Gráfico por semana: treinos (com a meta), séries ou volume; semana atual destacada como "em andamento"
+- Progressão por exercício: 1RM estimado, maior carga ou volume (reps para peso corporal, segundos para tempo)
+- Gráficos com escala de tempo real, toque/arraste mostra o valor de cada ponto
+- Peso: média móvel de 7 dias, linha da meta, ritmo atual (regressão das últimas 4 semanas) e previsão da data da meta
+- Relação cintura/altura e variação de cada medida desde a primeira medição
+
 ## Compatibilidade
 Usa as mesmas chaves de armazenamento da versão anterior (`gymtrack_*_v1`).
 Publicada no mesmo endereço (domínio da Adapta), lê os dados existentes sem precisar migrar.
 Em outro endereço, os dados antigos não aparecem: exporte o backup lá e importe no novo.
 
 ## Próximas etapas
-3. Volume semanal por músculo, gráficos de 1RM e período
-4. Restante da lista (biblioteca de exercícios, fotos, modo claro, Apple Saúde...)
+4. Restante da lista (fotos de progresso, superséries, RPE/RIR, editar treino salvo, programas com semanas, modo claro, kg/lb, Apple Saúde...)
 
 ## Publicação
 - Endereço: https://mausan2013-dotcom.github.io/gymtrack/

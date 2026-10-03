@@ -819,6 +819,57 @@
     .plan-ex-grid label { font-size: 0.68rem; font-weight: 700; color: var(--text-muted); display: flex; flex-direction: column; gap: 4px; }
     .plan-ex-grid .form-control { padding: 9px 8px; }
     textarea.form-control { resize: vertical; font-family: inherit; }
+
+    /* ---------- Etapa 3: análises e gráficos ---------- */
+    .chip-row { display: flex; gap: 6px; margin: 0 0 14px; overflow-x: auto; }
+    .chip {
+      flex: 0 0 auto; background: var(--surface); border: 1px solid var(--border); color: var(--text-muted);
+      border-radius: 999px; padding: 7px 14px; font-size: 0.8rem; font-weight: 700; cursor: pointer; font-family: inherit;
+    }
+    .chip.active { background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.5); color: var(--text); }
+    .kpi-grid.kpi-2 { grid-template-columns: repeat(2, 1fr); }
+    .kpi-item .sub { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; }
+    .card-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+    .card-title { font-size: 0.98rem; font-weight: 800; margin: 0; }
+    .card-sub { font-size: 0.75rem; color: var(--text-muted); margin: 0 0 12px; line-height: 1.45; }
+    .seg { display: inline-flex; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 2px; }
+    .seg-btn {
+      background: none; border: none; color: var(--text-muted); font-size: 0.72rem; font-weight: 700;
+      padding: 6px 10px; border-radius: 8px; cursor: pointer; font-family: inherit; white-space: nowrap;
+    }
+    .seg-btn.active { background: var(--surface-elevated); color: var(--text); }
+    .pr-strip { margin: 4px 0 6px; }
+
+    .chart-container { height: auto; position: relative; }
+    .svg-chart { width: 100%; height: auto; display: block; overflow: visible; touch-action: pan-y; -webkit-user-select: none; user-select: none; }
+    .chart-tip {
+      position: absolute; top: -6px; pointer-events: none; z-index: 5;
+      background: #0b1220; border: 1px solid var(--border); border-radius: 8px; padding: 6px 9px;
+      font-size: 0.72rem; color: var(--text-muted); line-height: 1.4; white-space: nowrap; box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+    }
+    .chart-tip strong { color: var(--text); font-size: 0.8rem; }
+    .chart-legend { display: flex; gap: 14px; font-size: 0.72rem; color: var(--text-muted); margin: 6px 0 4px; }
+    .chart-legend:empty { display: none; }
+    .chart-legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .key-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .key-line { width: 14px; height: 2px; border-radius: 2px; display: inline-block; }
+
+    .mv-row { display: grid; grid-template-columns: 64px 1fr 74px; gap: 10px; align-items: center; padding: 5px 0; }
+    .mv-name { font-size: 0.8rem; font-weight: 700; }
+    .mv-track { position: relative; height: 14px; background: var(--bg); border-radius: 4px; }
+    .mv-band { position: absolute; top: 0; bottom: 0; background: rgba(148, 163, 184, 0.14); border-left: 1px solid rgba(148,163,184,0.35); border-right: 1px solid rgba(148,163,184,0.35); }
+    .mv-bar { position: absolute; left: 0; top: 3px; bottom: 3px; background: var(--accent); border-radius: 0 4px 4px 0; min-width: 2px; }
+    .mv-val { font-size: 0.78rem; text-align: right; color: var(--text); font-weight: 700; }
+    .mv-val small { display: block; font-size: 0.66rem; color: var(--text-muted); font-weight: 600; }
+    .mv-scale { display: grid; grid-template-columns: 64px 1fr 74px; gap: 10px; font-size: 0.64rem; color: var(--text-muted); margin-top: 4px; }
+    .mv-ticks { position: relative; height: 12px; }
+    .mv-ticks span { position: absolute; transform: translateX(-50%); }
+
+    .delta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .delta-item { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 8px 10px; }
+    .delta-item .label { font-size: 0.68rem; color: var(--text-muted); font-weight: 700; }
+    .delta-item .value { font-size: 1rem; font-weight: 800; margin-top: 2px; }
+    .delta-item .sub { font-size: 0.66rem; color: var(--text-muted); }
   </style>
 </head>
 <body>
@@ -967,18 +1018,47 @@
     <section id="tab-evolution" class="tab-content">
       <h2 style="font-size: 1.3rem; font-weight: 800; margin: 0 0 16px 0;">Evolução e Recordes</h2>
 
-      <!-- Exercício Seletor para Gráfico de Carga -->
-      <div class="card-box">
-        <div class="form-group" style="margin-bottom: 12px;">
-          <label for="chartExerciseSelect">Selecione o Exercício</label>
-          <select id="chartExerciseSelect" class="form-control" onchange="renderExerciseProgressionChart()"></select>
+      <div class="chip-row" id="evoPeriodChips"></div>
+
+      <div id="evoEmpty" class="card-box empty-state" hidden>
+        <div class="empty-icon">📊</div>Os gráficos aparecem depois do primeiro treino salvo.
+      </div>
+
+      <div id="evoContent">
+        <!-- Resumo do período -->
+        <div class="kpi-grid kpi-2" id="evoKpis"></div>
+
+        <!-- Séries por grupo muscular -->
+        <div class="card-box">
+          <div class="card-head">
+            <h3 class="card-title">Séries por grupo muscular</h3>
+            <div id="muscleModeSeg"></div>
+          </div>
+          <p class="card-sub" id="muscleSub"></p>
+          <div id="muscleVolumeBox"></div>
         </div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-          <span style="font-size:0.8rem; color:var(--text-muted);">Carga Máxima (kg) ao longo dos treinos</span>
-          <span class="badge badge-amber" id="chartCurrentPR">Recorde: --</span>
+
+        <!-- Por semana -->
+        <div class="card-box">
+          <div class="card-head">
+            <h3 class="card-title" id="weeklyTitle">Por semana</h3>
+            <div id="weeklyMetricSeg"></div>
+          </div>
+          <div class="chart-container" id="weeklyChartBox"></div>
         </div>
-        <div class="chart-container" id="progressionChartBox">
-          <!-- Inline SVG Chart drawn via JS -->
+
+        <!-- Progressão por exercício -->
+        <div class="card-box">
+          <div class="form-group" style="margin-bottom: 10px;">
+            <label for="chartExerciseSelect">Exercício</label>
+            <select id="chartExerciseSelect" class="form-control" onchange="renderExerciseProgressionChart()"></select>
+          </div>
+          <div class="card-head">
+            <span class="card-sub" style="margin:0;" id="exerciseChartSub"></span>
+            <div id="exerciseMetricSeg"></div>
+          </div>
+          <div class="pr-strip"><span class="badge badge-amber" id="chartCurrentPR">Recorde: --</span></div>
+          <div class="chart-container" id="progressionChartBox"></div>
         </div>
       </div>
 
@@ -1021,12 +1101,18 @@
       </div>
 
       <!-- Gráfico de Evolução de Peso -->
+      <div class="chip-row" id="measPeriodChips"></div>
       <div class="card-box">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-          <h3 style="font-size:0.95rem; font-weight:700; margin:0;"><span id="weightChartTitle">Evolução do Peso vs Meta</span></h3>
-          <span class="badge badge-accent">--- meta</span>
-        </div>
+        <h3 class="card-title" id="weightChartTitle">Peso</h3>
+        <div class="chart-legend" id="weightLegend"></div>
         <div class="chart-container" id="weightChartContainer"></div>
+      </div>
+
+      <!-- Variação desde a primeira medição -->
+      <div class="card-box" id="measureDeltasCard" hidden>
+        <h3 class="card-title">Variação desde a primeira medição</h3>
+        <p class="card-sub" id="measureDeltasSub"></p>
+        <div class="delta-grid" id="measureDeltas"></div>
       </div>
 
       <!-- Lista de Registros de Medidas -->
@@ -1337,7 +1423,7 @@
        As chaves "_v1" foram mantidas de propósito: assim esta versão lê os
        dados já gravados pela versão anterior no mesmo endereço.
     ===================================================================== */
-    const APP_VERSION = '2.1 — etapa 2';
+    const APP_VERSION = '2.2 — etapa 3';
     const BACKUP_FORMAT = 2;
     const STORAGE_KEYS = {
       PLANS: 'gymtrack_plans_v1',
@@ -1869,6 +1955,29 @@
       if (p.height && currentWeight) {
         const bmi = currentWeight / Math.pow(p.height / 100, 2);
         chips.push(`IMC <strong>${formatNumberBR(bmi, 1)}</strong>`);
+      }
+      const latestWaist = appState.measures.find(m => parseFloat(m.cintura) > 0);
+      if (p.height && latestWaist) {
+        const ratio = parseFloat(latestWaist.cintura) / p.height;
+        chips.push(`Cintura/altura <strong>${formatNumberBR(ratio, 2)}</strong>${ratio < 0.5 ? ' (abaixo de 0,5)' : ''}`);
+      }
+      const trend = computeWeightTrend();
+      if (trend) {
+        const pw = trend.perWeek;
+        chips.push(`Ritmo atual <strong>${pw > 0 ? '+' : pw < 0 ? '−' : ''}${formatNumberBR(Math.abs(pw), 2)} kg/sem</strong>`);
+        const rightWay = losing ? pw < -0.02 : pw > 0.02;
+        if (remaining > 0 && rightWay) {
+          const daysToGo = Math.abs((trend.fitted - p.targetWeight) / (pw / 7));
+          const eta = new Date(trend.lastDate.getTime() + daysToGo * DAY_MS);
+          let vs = '';
+          if (p.targetDate) {
+            const diff = Math.round(daysBetween(parseDate(p.targetDate), eta) / 7);
+            vs = diff > 0 ? ` (${diff} sem depois da data alvo)` : diff < 0 ? ` (${-diff} sem antes da data alvo)` : ' (na data alvo)';
+          }
+          chips.push(`Previsão da meta <strong>${formatDateBR(eta)}</strong>${vs}`);
+        } else if (remaining > 0) {
+          chips.push(`No ritmo atual a meta não se aproxima`);
+        }
       }
       if (p.targetDate && remaining > 0) {
         const daysLeft = daysBetween(new Date(), parseDate(p.targetDate));
@@ -2950,36 +3059,383 @@
     /* =====================================================================
        TAB 5: EVOLUÇÃO E PRs (Gráficos Interativos Inline SVG)
     ===================================================================== */
-    function renderEvolutionTab() {
-      if (appState.history.length === 0) {
-        document.getElementById('progressionChartBox').innerHTML = '<div class="empty-state">Os gráficos aparecem depois do primeiro treino salvo.</div>';
-        document.getElementById('chartCurrentPR').textContent = 'Recorde: --';
-      }
-      // 1. Fill exercises dropdown
-      const select = document.getElementById('chartExerciseSelect');
-      const currentSelected = select.value;
-      select.innerHTML = '';
+    /* =====================================================================
+       PERÍODO (compartilhado entre Evolução e Medidas)
+    ===================================================================== */
+    const PERIODS = { '4w': ['4 sem', 28], '12w': ['3 meses', 91], '52w': ['1 ano', 365], 'all': ['Tudo', null] };
 
-      // Collect all unique exercise names from plans and history
-      const exerciseSet = new Set();
-      appState.history.forEach(h => h.exercises.forEach(e => exerciseSet.add(e.name)));
-      appState.plans.forEach(p => p.exercises.forEach(e => exerciseSet.add(e.name)));
+    function getPeriod() {
+      return PERIODS[appState.meta.period] ? appState.meta.period : '12w';
+    }
 
-      const exercises = Array.from(exerciseSet).sort();
-      exercises.forEach(exName => {
-        const opt = document.createElement('option');
-        opt.value = exName;
-        opt.textContent = exName;
-        if (exName === currentSelected) opt.selected = true;
-        select.appendChild(opt);
+    function periodStart() {
+      const days = PERIODS[getPeriod()][1];
+      if (!days) return null;
+      const d = startOfDay(new Date());
+      d.setDate(d.getDate() - days + 1);
+      return d;
+    }
+
+    function inPeriod(date) {
+      const start = periodStart();
+      return !start || parseDate(date) >= start;
+    }
+
+    function renderPeriodChips(id, onChange) {
+      const box = document.getElementById(id);
+      box.innerHTML = Object.entries(PERIODS).map(([k, [label]]) =>
+        `<button type="button" class="chip ${k === getPeriod() ? 'active' : ''}" data-period="${k}">${label}</button>`).join('');
+      box.querySelectorAll('.chip').forEach(btn => {
+        btn.onclick = () => {
+          appState.meta.period = btn.dataset.period;
+          saveState('meta');
+          onChange();
+        };
       });
+    }
 
-      if (!select.value && exercises.length > 0) {
-        select.value = exercises[0];
+    // Controle segmentado simples; guarda a escolha em meta[key]
+    function renderSeg(id, key, options, fallback, onChange) {
+      const current = options.some(([v]) => v === appState.meta[key]) ? appState.meta[key] : fallback;
+      const box = document.getElementById(id);
+      box.innerHTML = `<div class="seg" role="group">${options.map(([v, l]) =>
+        `<button type="button" class="seg-btn ${v === current ? 'active' : ''}" data-v="${v}">${l}</button>`).join('')}</div>`;
+      box.querySelectorAll('.seg-btn').forEach(btn => {
+        btn.onclick = () => {
+          appState.meta[key] = btn.dataset.v;
+          saveState('meta');
+          onChange();
+        };
+      });
+      return current;
+    }
+
+    /* =====================================================================
+       GRÁFICOS SVG — linha no tempo e colunas. Toque/arraste mostra o valor.
+       Uma série por gráfico (o peso usa duas, com legenda); um único eixo y.
+    ===================================================================== */
+    const CHART = { accent: '#10b981', blue: '#3b82f6', grid: '#1e293b', text: '#94a3b8', strong: '#f3f4f6', surface: '#131b2e' };
+
+    function niceTicks(min, max, count) {
+      const span = max - min || 1;
+      const raw = span / count;
+      const mag = Math.pow(10, Math.floor(Math.log10(raw)));
+      const step = [1, 2, 2.5, 5, 10].map(m => m * mag).find(st => st >= raw) || 10 * mag;
+      // Da marca abaixo do mínimo até a marca acima do máximo: o maior valor sempre cabe na escala
+      const first = Math.floor(min / step), last = Math.ceil(max / step - 1e-9);
+      const ticks = [];
+      for (let i = first; i <= Math.max(last, first + 1); i++) ticks.push(Math.round(i * step * 1000) / 1000);
+      return ticks;
+    }
+
+    function fmtAxis(v) {
+      return Math.abs(v) >= 1000 ? formatNumberBR(v / 1000, v % 1000 ? 1 : 0) + 'k' : formatKg(v);
+    }
+
+    function shortDate(d, withYear) {
+      const x = new Date(d);
+      const base = `${String(x.getDate()).padStart(2, '0')}/${String(x.getMonth() + 1).padStart(2, '0')}`;
+      return withYear ? `${base}/${String(x.getFullYear()).slice(2)}` : base;
+    }
+
+    function chartEmpty(el, text) {
+      el.innerHTML = `<div class="empty-state">${text}</div>`;
+    }
+
+    function attachChartTooltip(el, hits) {
+      const svg = el.querySelector('svg');
+      const tip = document.createElement('div');
+      tip.className = 'chart-tip';
+      tip.hidden = true;
+      el.appendChild(tip);
+      const cross = svg.querySelector('.ch-cross');
+      const focus = svg.querySelector('.ch-focus');
+      const vb = svg.viewBox.baseVal;
+      const show = evt => {
+        const r = svg.getBoundingClientRect();
+        const sx = (evt.clientX - r.left) / r.width * vb.width;
+        let best = null;
+        hits.forEach(h => { if (!best || Math.abs(h.x - sx) < Math.abs(best.x - sx)) best = h; });
+        if (!best) return;
+        cross.setAttribute('x1', best.x); cross.setAttribute('x2', best.x); cross.style.display = '';
+        if (focus) {
+          if (best.y !== undefined) { focus.setAttribute('cx', best.x); focus.setAttribute('cy', best.y); focus.style.display = ''; }
+          else focus.style.display = 'none';
+        }
+        tip.innerHTML = best.html;
+        tip.hidden = false;
+        const px = best.x / vb.width * r.width;
+        const tw = tip.offsetWidth;
+        tip.style.left = Math.min(Math.max(0, px - tw / 2), r.width - tw) + 'px';
+      };
+      const hide = () => { tip.hidden = true; cross.style.display = 'none'; if (focus) focus.style.display = 'none'; };
+      svg.addEventListener('pointerdown', show);
+      svg.addEventListener('pointermove', evt => { if (evt.pointerType === 'mouse' || evt.buttons) show(evt); });
+      svg.addEventListener('pointerleave', evt => { if (evt.pointerType === 'mouse') hide(); });
+    }
+
+    // series: [{ name, color, points: [{ x: Date, y, ... }], line, dots, area }]; a 1ª série recebe rótulo final e toque
+    function lineChart(el, { series, target, unit = '', tooltip, height = 180, ariaLabel = '' }) {
+      const all = series.flatMap(sr => sr.points);
+      if (!all.length) { chartEmpty(el, 'Sem dados no período.'); return; }
+      const W = 340, H = height, padL = 34, padR = 14, padT = 18, padB = 22;
+      let x0 = Math.min(...all.map(p => +p.x)), x1 = Math.max(...all.map(p => +p.x));
+      if (x1 - x0 < 2 * DAY_MS) { x0 -= 3 * DAY_MS; x1 += 3 * DAY_MS; }
+      const ys = all.map(p => p.y).concat(target ? [target.y] : []);
+      let y0 = Math.min(...ys), y1 = Math.max(...ys);
+      const pad = (y1 - y0) * 0.12 || Math.max(1, Math.abs(y1) * 0.05);
+      const ticks = niceTicks(y0 - pad, y1 + pad, 3);
+      y0 = ticks[0]; y1 = ticks[ticks.length - 1];
+      const X = t => padL + (t - x0) / (x1 - x0) * (W - padL - padR);
+      const Y = v => padT + (1 - (v - y0) / ((y1 - y0) || 1)) * (H - padT - padB);
+      const withYear = x1 - x0 > 300 * DAY_MS;
+
+      let svgInner = ticks.map(t => `
+        <line x1="${padL}" y1="${Y(t)}" x2="${W - padR}" y2="${Y(t)}" stroke="${CHART.grid}" stroke-width="1"/>
+        <text x="${padL - 6}" y="${Y(t) + 3}" text-anchor="end" font-size="9" fill="${CHART.text}">${fmtAxis(t)}</text>`).join('');
+      svgInner += `
+        <text x="${padL}" y="${H - 6}" font-size="9" fill="${CHART.text}">${shortDate(x0, withYear)}</text>
+        <text x="${W - padR}" y="${H - 6}" text-anchor="end" font-size="9" fill="${CHART.text}">${shortDate(x1, withYear)}</text>`;
+      if (target) {
+        svgInner += `
+          <line x1="${padL}" y1="${Y(target.y)}" x2="${W - padR}" y2="${Y(target.y)}" stroke="${CHART.accent}" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.8"/>
+          <text x="${W - padR}" y="${Y(target.y) - 5}" text-anchor="end" font-size="9" font-weight="700" fill="${CHART.text}">${target.label}</text>`;
       }
+      series.forEach(sr => {
+        const pts = [...sr.points].sort((a, b) => a.x - b.x);
+        const d = pts.map((p, i) => `${i ? 'L' : 'M'}${X(+p.x).toFixed(1)} ${Y(p.y).toFixed(1)}`).join(' ');
+        if (sr.area && pts.length > 1) {
+          svgInner += `<path d="${d} L${X(+pts[pts.length - 1].x)} ${Y(y0)} L${X(+pts[0].x)} ${Y(y0)} Z" fill="${sr.color}" opacity="0.1"/>`;
+        }
+        if (sr.line !== false && pts.length > 1) {
+          svgInner += `<path d="${d}" fill="none" stroke="${sr.color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+        }
+        if (sr.dots !== false) {
+          svgInner += pts.map(p => `<circle cx="${X(+p.x)}" cy="${Y(p.y)}" r="4" fill="${sr.color}" stroke="${CHART.surface}" stroke-width="2"/>`).join('');
+        }
+      });
+      const main = [...series[0].points].sort((a, b) => a.x - b.x);
+      const last = main[main.length - 1];
+      if (last) {
+        const lx = X(+last.x);
+        svgInner += `<text x="${Math.min(lx, W - padR)}" y="${Y(last.y) - 9}" text-anchor="${lx > W - 40 ? 'end' : 'middle'}" font-size="10" font-weight="700" fill="${CHART.strong}">${formatKg(Math.round(last.y * 10) / 10)}${unit}</text>`;
+      }
+      svgInner += `
+        <line class="ch-cross" y1="${padT - 4}" y2="${H - padB}" stroke="${CHART.text}" stroke-width="1" style="display:none"/>
+        <circle class="ch-focus" r="6" fill="none" stroke="${CHART.strong}" stroke-width="2" style="display:none"/>`;
+      el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" class="svg-chart" role="img" aria-label="${escapeHtml(ariaLabel)}">${svgInner}</svg>`;
+      attachChartTooltip(el, main.map(p => ({ x: X(+p.x), y: Y(p.y), html: tooltip(p) })));
+    }
 
-      renderExerciseProgressionChart();
+    // bars: [{ label, value, partial, tip }]; meta opcional como linha tracejada
+    function barChart(el, { bars, goal, goalLabel, format = v => formatKg(v), height = 170, ariaLabel = '' }) {
+      if (!bars.length) { chartEmpty(el, 'Sem dados no período.'); return; }
+      const W = 340, H = height, padL = 30, padR = 8, padT = 20, padB = 22;
+      const max = Math.max(...bars.map(b => b.value), goal || 0, 1);
+      const ticks = niceTicks(0, max * 1.1, 3);
+      const top = ticks[ticks.length - 1];
+      const Y = v => padT + (1 - v / top) * (H - padT - padB);
+      const base = Y(0);
+      const slot = (W - padL - padR) / bars.length;
+      const bw = Math.max(3, Math.min(24, slot - 2));
+      const every = Math.ceil(bars.length / 6);
+
+      let svgInner = ticks.map(t => `
+        <line x1="${padL}" y1="${Y(t)}" x2="${W - padR}" y2="${Y(t)}" stroke="${CHART.grid}" stroke-width="1"/>
+        <text x="${padL - 5}" y="${Y(t) + 3}" text-anchor="end" font-size="9" fill="${CHART.text}">${fmtAxis(t)}</text>`).join('');
+      const hits = [];
+      bars.forEach((b, i) => {
+        const cx = padL + slot * i + slot / 2;
+        const x = cx - bw / 2;
+        const h = base - Y(b.value);
+        if (h > 0) {
+          const r = Math.min(4, bw / 2, h);
+          svgInner += `<path d="M${x} ${base} V${base - h + r} Q${x} ${base - h} ${x + r} ${base - h} H${x + bw - r} Q${x + bw} ${base - h} ${x + bw} ${base - h + r} V${base} Z" fill="${CHART.accent}" opacity="${b.partial ? 0.45 : 1}"/>`;
+        }
+        if (i % every === (bars.length - 1) % every) {
+          svgInner += `<text x="${cx}" y="${H - 6}" text-anchor="middle" font-size="9" fill="${CHART.text}">${b.label}</text>`;
+        }
+        hits.push({ x: cx, html: b.tip });
+      });
+      const lastBar = bars[bars.length - 1];
+      const lastX = padL + slot * (bars.length - 1) + slot / 2;
+      svgInner += `<text x="${Math.min(lastX, W - padR - 4)}" y="${Y(lastBar.value) - 6}" text-anchor="${lastX > W - 30 ? 'end' : 'middle'}" font-size="10" font-weight="700" fill="${CHART.strong}">${format(lastBar.value)}</text>`;
+      if (goal) {
+        svgInner += `
+          <line x1="${padL}" y1="${Y(goal)}" x2="${W - padR}" y2="${Y(goal)}" stroke="${CHART.text}" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <text x="${padL + 4}" y="${Y(goal) - 5}" font-size="9" font-weight="700" fill="${CHART.text}">${goalLabel || ''}</text>`;
+      }
+      svgInner += `<line class="ch-cross" y1="${padT - 6}" y2="${base}" stroke="${CHART.text}" stroke-width="1" style="display:none"/>`;
+      el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" class="svg-chart" role="img" aria-label="${escapeHtml(ariaLabel)}">${svgInner}</svg>`;
+      attachChartTooltip(el, hits);
+    }
+
+    /* =====================================================================
+       ANÁLISES DE TREINO
+    ===================================================================== */
+    const MUSCLE_ORDER = ['peito', 'costas', 'pernas', 'ombros', 'bracos', 'abdomen', 'geral'];
+    const WEEKLY_SETS_RANGE = [10, 20];
+
+    function workingSetsOf(ex) {
+      return (ex.sets || []).filter(isWorkingSet);
+    }
+
+    function exerciseTypeOf(ex) {
+      return ex.type || getExerciseInfo(ex.name).type;
+    }
+
+    function volumeOf(ex) {
+      if (exerciseTypeOf(ex) !== 'carga') return 0;
+      return workingSetsOf(ex).reduce((v, st) => v + (parseFloat(st.kg) || 0) * (parseInt(st.reps, 10) || 0), 0);
+    }
+
+    function workoutStats(w) {
+      return (w.exercises || []).reduce((acc, ex) => {
+        acc.sets += workingSetsOf(ex).length;
+        acc.volume += volumeOf(ex);
+        return acc;
+      }, { sets: 0, volume: 0 });
+    }
+
+    // Número de semanas cobertas pelo período (para médias semanais)
+    function weeksInPeriod() {
+      const start = periodStart();
+      const oldest = appState.history.length ? parseDate(appState.history[appState.history.length - 1].date) : new Date();
+      const from = start && start > oldest ? start : oldest;
+      return Math.max(1, Math.ceil((daysBetween(from, new Date()) + 1) / 7));
+    }
+
+    function muscleSetsFor(workouts) {
+      const counts = {};
+      workouts.forEach(w => (w.exercises || []).forEach(ex => {
+        const muscle = ex.muscle || getExerciseInfo(ex.name).muscle || 'geral';
+        counts[muscle] = (counts[muscle] || 0) + workingSetsOf(ex).length;
+      }));
+      return counts;
+    }
+
+    function renderEvolutionTab() {
+      const rerender = () => renderEvolutionTab();
+      renderPeriodChips('evoPeriodChips', rerender);
+      const hasHistory = appState.history.length > 0;
+      document.getElementById('evoEmpty').hidden = hasHistory;
+      document.getElementById('evoContent').hidden = !hasHistory;
+      if (hasHistory) {
+        renderEvoKpis();
+        renderMuscleVolume(rerender);
+        renderWeeklyChart(rerender);
+        renderExerciseSelect();
+        renderExerciseProgressionChart();
+      }
       renderPRsList();
+    }
+
+    function renderEvoKpis() {
+      const list = appState.history.filter(h => inPeriod(h.date));
+      const totals = list.reduce((acc, w) => {
+        const st = workoutStats(w);
+        acc.sets += st.sets; acc.volume += st.volume; acc.min += w.durationMin || 0;
+        return acc;
+      }, { sets: 0, volume: 0, min: 0 });
+      const weeks = weeksInPeriod();
+      const perWeek = list.length / weeks;
+      const tiles = [
+        ['Treinos', String(list.length), `${formatNumberBR(perWeek, 1)} por semana (meta ${getWeeklyGoal()})`],
+        ['Séries de trabalho', String(totals.sets), list.length ? `${Math.round(totals.sets / list.length)} por treino` : '—'],
+        ['Volume levantado', `${formatNumberBR(totals.volume / 1000, 1)} t`, 'carga × reps, sem aquecimento'],
+        ['Tempo treinando', `${formatNumberBR(totals.min / 60, 1)} h`, list.length ? `${Math.round(totals.min / list.length)} min por treino` : '—']
+      ];
+      document.getElementById('evoKpis').innerHTML = tiles.map(([label, value, sub]) => `
+        <div class="kpi-item"><div class="label">${label}</div><div class="value">${value}</div><div class="sub">${sub}</div></div>`).join('');
+    }
+
+    function renderMuscleVolume(rerender) {
+      const mode = renderSeg('muscleModeSeg', 'muscleMode', [['week', 'Esta semana'], ['avg', 'Média/semana']], 'week', rerender);
+      const [lo, hi] = WEEKLY_SETS_RANGE;
+      let counts, divisor = 1;
+      if (mode === 'week') {
+        const ws = weekStart(new Date());
+        counts = muscleSetsFor(appState.history.filter(h => parseDate(h.date) >= ws));
+        document.getElementById('muscleSub').textContent = `Séries de trabalho desde segunda. Faixa cinza: ${lo}–${hi} séries por semana, referência comum para hipertrofia.`;
+      } else {
+        divisor = weeksInPeriod();
+        counts = muscleSetsFor(appState.history.filter(h => inPeriod(h.date)));
+        document.getElementById('muscleSub').textContent = `Média de ${divisor} ${divisor === 1 ? 'semana' : 'semanas'} (${PERIODS[getPeriod()][0].toLowerCase()}). Faixa cinza: ${lo}–${hi} séries por semana.`;
+      }
+      const rows = MUSCLE_ORDER.filter(m => m !== 'geral' || counts.geral).map(m => ({ m, v: (counts[m] || 0) / divisor }));
+      const scaleMax = Math.max(hi + 4, ...rows.map(r => Math.ceil(r.v)));
+      const pct = v => (v / scaleMax * 100).toFixed(1);
+      const status = v => v === 0 ? 'nenhuma' : v < lo ? 'abaixo' : v > hi ? 'acima' : 'na faixa';
+      document.getElementById('muscleVolumeBox').innerHTML = rows.map(r => `
+        <div class="mv-row">
+          <div class="mv-name">${MUSCLE_LABELS[r.m]}</div>
+          <div class="mv-track">
+            <div class="mv-band" style="left:${pct(lo)}%; width:${(pct(hi) - pct(lo)).toFixed(1)}%"></div>
+            <div class="mv-bar" style="width:${pct(r.v)}%"></div>
+          </div>
+          <div class="mv-val">${formatNumberBR(r.v, divisor === 1 ? 0 : 1)} <small>${status(r.v)}</small></div>
+        </div>`).join('') + `
+        <div class="mv-scale"><div></div><div class="mv-ticks">
+          <span style="left:0; transform:none;">0</span>
+          <span style="left:${pct(lo)}%">${lo}</span>
+          <span style="left:${pct(hi)}%">${hi}</span>
+        </div><div></div></div>`;
+    }
+
+    function renderWeeklyChart(rerender) {
+      const metric = renderSeg('weeklyMetricSeg', 'weeklyMetric', [['count', 'Treinos'], ['sets', 'Séries'], ['volume', 'Volume']], 'count', rerender);
+      const titles = { count: 'Treinos por semana', sets: 'Séries por semana', volume: 'Volume por semana (t)' };
+      document.getElementById('weeklyTitle').textContent = titles[metric];
+
+      const currentWeek = weekStart(new Date());
+      const oldest = weekStart(appState.history[appState.history.length - 1].date);
+      const start = periodStart();
+      let cursor = start && weekStart(start) > oldest ? weekStart(start) : oldest;
+      const weeks = [];
+      while (cursor <= currentWeek) {
+        weeks.push(new Date(cursor));
+        cursor.setDate(cursor.getDate() + 7);
+      }
+      const recent = weeks.slice(-52);
+      const byWeek = {};
+      appState.history.forEach(h => {
+        const k = weekStart(h.date).getTime();
+        const st = workoutStats(h);
+        const acc = byWeek[k] || (byWeek[k] = { count: 0, sets: 0, volume: 0 });
+        acc.count += 1; acc.sets += st.sets; acc.volume += st.volume / 1000;
+      });
+      const fmt = v => metric === 'volume' ? formatNumberBR(v, 1) : String(Math.round(v));
+      const bars = recent.map(ws => {
+        const acc = byWeek[ws.getTime()] || { count: 0, sets: 0, volume: 0 };
+        const end = new Date(ws); end.setDate(end.getDate() + 6);
+        const partial = ws.getTime() === currentWeek.getTime();
+        return {
+          label: shortDate(ws),
+          value: acc[metric],
+          partial,
+          tip: `${shortDate(ws)} a ${shortDate(end)}${partial ? ' (em andamento)' : ''}<br><strong>${fmt(acc[metric])} ${metric === 'count' ? (acc.count === 1 ? 'treino' : 'treinos') : metric === 'sets' ? 'séries' : 't'}</strong>`
+        };
+      });
+      barChart(document.getElementById('weeklyChartBox'), {
+        bars,
+        goal: metric === 'count' ? getWeeklyGoal() : null,
+        goalLabel: `meta ${getWeeklyGoal()}/sem`,
+        format: fmt,
+        ariaLabel: titles[metric]
+      });
+    }
+
+    function renderExerciseSelect() {
+      const select = document.getElementById('chartExerciseSelect');
+      const current = select.value || appState.meta.chartExercise;
+      // Exercícios com histórico, do mais feito ao menos feito
+      const freq = {};
+      appState.history.forEach(h => (h.exercises || []).forEach(ex => {
+        if (workingSetsOf(ex).length) freq[ex.name] = (freq[ex.name] || 0) + 1;
+      }));
+      const names = Object.keys(freq).sort((a, b) => freq[b] - freq[a] || a.localeCompare(b, 'pt-BR'));
+      select.innerHTML = names.map(n => `<option value="${escapeHtml(n)}">${escapeHtml(n)} (${freq[n]}×)</option>`).join('');
+      if (names.includes(current)) select.value = current;
     }
 
     function renderExerciseProgressionChart() {
@@ -2987,102 +3443,56 @@
       const exName = select.value;
       const box = document.getElementById('progressionChartBox');
       const prBadge = document.getElementById('chartCurrentPR');
+      const segBox = document.getElementById('exerciseMetricSeg');
+      if (!exName) { chartEmpty(box, 'Nenhum exercício registrado.'); return; }
+      appState.meta.chartExercise = exName;
 
-      if (!exName) {
-        box.innerHTML = '<div style="color:var(--text-muted); text-align:center; padding-top:60px;">Sem dados para este exercício</div>';
-        return;
-      }
-
-      // Pontos por sessão: maior carga (com carga), mais reps (peso corporal) ou mais segundos (tempo)
       const type = getExerciseInfo(exName).type;
-      const unit = type === 'tempo' ? 's' : type === 'corporal' ? '' : 'kg';
-      const field = type === 'tempo' ? 'secs' : type === 'corporal' ? 'reps' : 'kg';
-      const points = [];
-      const sortedHistory = [...appState.history].sort((a,b) => new Date(a.date) - new Date(b.date));
+      let metric = type;
+      if (type === 'carga') {
+        metric = renderSeg('exerciseMetricSeg', 'exMetric', [['e1rm', '1RM est.'], ['max', 'Maior carga'], ['vol', 'Volume']], 'e1rm', renderExerciseProgressionChart);
+      } else {
+        segBox.innerHTML = '';
+      }
+      const subs = {
+        e1rm: '1RM estimado da melhor série de cada treino (kg)',
+        max: 'Maior carga usada em cada treino (kg)',
+        vol: 'Volume do exercício em cada treino (kg × reps)',
+        corporal: 'Mais repetições numa série, por treino',
+        tempo: 'Maior tempo numa série, por treino (segundos)'
+      };
+      document.getElementById('exerciseChartSub').textContent = subs[metric];
+      const unit = { e1rm: 'kg', max: 'kg', vol: 'kg', corporal: '', tempo: 's' }[metric];
 
-      sortedHistory.forEach(h => {
-        const found = h.exercises.find(e => normalizeName(e.name) === normalizeName(exName));
-        const doneSets = found ? (found.sets || []).filter(isWorkingSet) : [];
-        if (doneSets.length > 0) {
-          const maxKg = Math.max(...doneSets.map(s => parseFloat(s[field]) || 0));
-          if (maxKg > 0) {
-            points.push({
-              date: h.date,
-              dateStr: formatDateBR(h.date).slice(0, 5), // dd/mm
-              kg: maxKg
-            });
-          }
-        }
+      const points = [];
+      appState.history.filter(h => inPeriod(h.date)).forEach(h => {
+        const ex = (h.exercises || []).find(e => normalizeName(e.name) === normalizeName(exName));
+        const sets = ex ? workingSetsOf(ex) : [];
+        if (!sets.length) return;
+        const top = bestSet(sets, type);
+        let y;
+        if (metric === 'e1rm') y = estimate1RM(top.kg, top.reps);
+        else if (metric === 'max') y = Math.max(...sets.map(st => parseFloat(st.kg) || 0));
+        else if (metric === 'vol') y = volumeOf({ ...ex, type: 'carga' });
+        else if (metric === 'tempo') y = Math.max(...sets.map(st => parseInt(st.secs, 10) || 0));
+        else y = Math.max(...sets.map(st => parseInt(st.reps, 10) || 0));
+        if (y > 0) points.push({ x: parseDate(h.date), y: Math.round(y * 10) / 10, top, sets: sets.length });
       });
 
-      if (points.length === 0) {
-        prBadge.textContent = 'Recorde: --';
-        box.innerHTML = '<div style="color:var(--text-muted); text-align:center; padding-top:60px;">Nenhuma série registrada para este exercício ainda.</div>';
-        return;
-      }
-
-      const allKgs = points.map(p => p.kg);
-      const maxKg = Math.max(...allKgs);
-      const minKg = Math.max(0, Math.min(...allKgs) - 5);
       const pr = appState.prs[exName];
       if (type === 'carga') {
-        prBadge.textContent = pr ? `Recorde: ${formatKg(pr.kg)} kg • 1RM est. ${formatKg(Math.round(pr.e1rm))} kg` : `Recorde: ${formatKg(maxKg)} kg`;
+        prBadge.textContent = pr ? `Recorde: ${formatKg(pr.kg)} kg • 1RM est. ${formatKg(Math.round(pr.e1rm))} kg` : 'Recorde: --';
       } else {
-        prBadge.textContent = `Recorde: ${pr && pr.bestSet ? setLabel(pr.bestSet, type) : formatKg(maxKg) + unit}`;
+        prBadge.textContent = pr && pr.bestSet ? `Recorde: ${setLabel(pr.bestSet, type)}` : 'Recorde: --';
       }
 
-      // Draw SVG Line Chart
-      const width = 340;
-      const height = 180;
-      const padLeft = 35;
-      const padRight = 20;
-      const padTop = 20;
-      const padBottom = 30;
-
-      const chartW = width - padLeft - padRight;
-      const chartH = height - padTop - padBottom;
-
-      const kgRange = (maxKg - minKg) || 10;
-
-      const coords = points.map((p, idx) => {
-        const x = points.length === 1 ? padLeft + chartW / 2 : padLeft + (idx / (points.length - 1)) * chartW;
-        const y = padTop + chartH - ((p.kg - minKg) / kgRange) * chartH;
-        return { x, y, ...p };
+      if (!points.length) { chartEmpty(box, 'Sem registros deste exercício no período.'); return; }
+      lineChart(box, {
+        series: [{ name: exName, color: CHART.accent, points, area: true }],
+        unit,
+        ariaLabel: `${exName}: ${subs[metric]}`,
+        tooltip: p => `${formatDateBR(p.x)}<br><strong>${formatKg(p.y)}${unit ? ' ' + unit : ''}</strong><br>Melhor série: ${setLabel(p.top, type)} • ${p.sets} ${p.sets === 1 ? 'série' : 'séries'}`
       });
-
-      let pathD = `M ${coords[0].x} ${coords[0].y}`;
-      for (let i = 1; i < coords.length; i++) {
-        pathD += ` L ${coords[i].x} ${coords[i].y}`;
-      }
-
-      // Area fill
-      let areaD = `${pathD} L ${coords[coords.length - 1].x} ${padTop + chartH} L ${coords[0].x} ${padTop + chartH} Z`;
-
-      let circlesHtml = coords.map(c => `
-        <circle cx="${c.x}" cy="${c.y}" r="4.5" fill="#10b981" stroke="#090d16" stroke-width="2"/>
-        <text x="${c.x}" y="${c.y - 8}" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">${formatKg(c.kg)}${unit}</text>
-        <text x="${c.x}" y="${padTop + chartH + 18}" text-anchor="middle" font-size="9" fill="#94a3b8">${c.dateStr}</text>
-      `).join('');
-
-      box.innerHTML = `
-        <svg viewBox="0 0 ${width} ${height}" class="svg-chart">
-          <defs>
-            <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#10b981" stop-opacity="0.35"/>
-              <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
-            </linearGradient>
-          </defs>
-          <!-- Grid lines -->
-          <line x1="${padLeft}" y1="${padTop}" x2="${width - padRight}" y2="${padTop}" stroke="#232f48" stroke-dasharray="3"/>
-          <line x1="${padLeft}" y1="${padTop + chartH}" x2="${width - padRight}" y2="${padTop + chartH}" stroke="#232f48"/>
-          <!-- Area -->
-          <path d="${areaD}" fill="url(#chartGrad)"/>
-          <!-- Line -->
-          <path d="${pathD}" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
-          <!-- Data points -->
-          ${circlesHtml}
-        </svg>
-      `;
     }
 
     function renderPRsList() {
@@ -3138,70 +3548,93 @@
        TAB 6: MEDIDAS CORPORAIS & META DE 73KG
     ===================================================================== */
     function renderMeasurementsTab() {
+      renderPeriodChips('measPeriodChips', renderMeasurementsTab);
       updateTargetWeightUI();
       renderWeightTrendChart();
+      renderMeasureDeltas();
       renderMeasuresList();
+    }
+
+    // Média móvel: média das pesagens dos 7 dias até cada data
+    function movingAverage(sortedAsc, days) {
+      return sortedAsc.map(m => {
+        const t = parseDate(m.date);
+        const from = new Date(t); from.setDate(from.getDate() - (days - 1));
+        const win = sortedAsc.filter(o => { const d = parseDate(o.date); return d >= from && d <= t; });
+        return { x: t, y: win.reduce((a, o) => a + parseFloat(o.weight), 0) / win.length, n: win.length };
+      });
+    }
+
+    // Tendência por regressão linear nas pesagens das últimas 4 semanas (ou as 4 últimas, se houver poucas)
+    function computeWeightTrend() {
+      const asc = [...appState.measures].sort((a, b) => parseDate(a.date) - parseDate(b.date));
+      if (asc.length < 2) return null;
+      const cutoff = startOfDay(new Date()); cutoff.setDate(cutoff.getDate() - 27);
+      let sample = asc.filter(m => parseDate(m.date) >= cutoff);
+      if (sample.length < 3) sample = asc.slice(-4);
+      const t0 = parseDate(sample[0].date);
+      const xs = sample.map(m => (parseDate(m.date) - t0) / DAY_MS);
+      const ys = sample.map(m => parseFloat(m.weight));
+      if (xs[xs.length - 1] < 6) return null;
+      const mx = xs.reduce((a, b) => a + b, 0) / xs.length;
+      const my = ys.reduce((a, b) => a + b, 0) / ys.length;
+      const slope = xs.reduce((a, x, i) => a + (x - mx) * (ys[i] - my), 0) / xs.reduce((a, x) => a + (x - mx) ** 2, 0);
+      const lastX = xs[xs.length - 1];
+      const fitted = my + slope * (lastX - mx);
+      return { perWeek: slope * 7, fitted, lastDate: parseDate(sample[sample.length - 1].date), days: lastX, n: sample.length };
+    }
+
+    function renderMeasureDeltas() {
+      const card = document.getElementById('measureDeltasCard');
+      const asc = [...appState.measures].sort((a, b) => parseDate(a.date) - parseDate(b.date));
+      const fields = [['weight', 'Peso', 'kg'], ['cintura', 'Cintura', 'cm'], ['peito', 'Peito', 'cm'], ['braco', 'Braço', 'cm'], ['quadril', 'Quadril', 'cm'], ['coxa', 'Coxa', 'cm']];
+      const items = fields.map(([f, label, unit]) => {
+        const withValue = asc.filter(m => parseFloat(m[f]) > 0);
+        if (withValue.length < 2) return null;
+        const first = withValue[0], last = withValue[withValue.length - 1];
+        const delta = parseFloat(last[f]) - parseFloat(first[f]);
+        const sign = delta > 0 ? '+' : delta < 0 ? '−' : '';
+        return `<div class="delta-item"><div class="label">${label}</div>
+          <div class="value">${sign}${formatNumberBR(Math.abs(delta), 1)} ${unit}</div>
+          <div class="sub">${formatNumberBR(parseFloat(first[f]), 1)} → ${formatNumberBR(parseFloat(last[f]), 1)}</div></div>`;
+      }).filter(Boolean);
+      card.hidden = items.length === 0;
+      if (!items.length) return;
+      document.getElementById('measureDeltasSub').textContent = `De ${formatDateBR(asc[0].date)} a ${formatDateBR(asc[asc.length - 1].date)}.`;
+      document.getElementById('measureDeltas').innerHTML = items.join('');
     }
 
     function renderWeightTrendChart() {
       const container = document.getElementById('weightChartContainer');
+      const legend = document.getElementById('weightLegend');
       const p = appState.profile;
       const targetKg = p && p.targetWeight > 0 ? p.targetWeight : null;
-      document.getElementById('weightChartTitle').textContent = targetKg ? `Evolução do Peso vs Meta (${formatKg(targetKg)} kg)` : 'Evolução do Peso';
+      document.getElementById('weightChartTitle').textContent = 'Peso (kg)';
 
-      // Até 12 pontos mais recentes para o gráfico não ficar ilegível
-      const measuresSorted = [...appState.measures].sort((a,b) => parseDate(a.date) - parseDate(b.date)).slice(-12);
-      if (measuresSorted.length === 0) {
-        container.innerHTML = '<div class="empty-state">Registre seu peso em “+ Nova Medida” para ver o gráfico.</div>';
+      const asc = [...appState.measures].sort((a, b) => parseDate(a.date) - parseDate(b.date));
+      const avg = movingAverage(asc, 7).filter(pt => inPeriod(pt.x));
+      const raw = asc.filter(m => inPeriod(m.date)).map(m => ({ x: parseDate(m.date), y: parseFloat(m.weight), m }));
+      if (!raw.length) {
+        legend.innerHTML = '';
+        chartEmpty(container, appState.measures.length ? 'Sem pesagens neste período.' : 'Registre seu peso em “+ Nova Medida” para ver o gráfico.');
         return;
       }
-
-      const weights = measuresSorted.map(m => parseFloat(m.weight));
-      const refs = targetKg ? [targetKg] : [];
-      const maxW = Math.max(...weights, ...refs) + 1;
-      const minW = Math.min(...weights, ...refs) - 1;
-
-      const width = 340;
-      const height = 180;
-      const padLeft = 35;
-      const padRight = 20;
-      const padTop = 20;
-      const padBottom = 30;
-
-      const chartW = width - padLeft - padRight;
-      const chartH = height - padTop - padBottom;
-      const wRange = (maxW - minW) || 10;
-
-      const coords = measuresSorted.map((m, idx) => {
-        const x = measuresSorted.length === 1 ? padLeft + chartW / 2 : padLeft + (idx / (measuresSorted.length - 1)) * chartW;
-        const y = padTop + chartH - ((m.weight - minW) / wRange) * chartH;
-        return { x, y, ...m };
+      const showAvg = avg.some(pt => pt.n > 1);
+      legend.innerHTML = `<span><i class="key-dot" style="background:${CHART.blue}"></i>Pesagem</span>` +
+        (showAvg ? `<span><i class="key-line" style="background:${CHART.accent}"></i>Média de 7 dias</span>` : '') +
+        (targetKg ? `<span><i class="key-line" style="background:repeating-linear-gradient(90deg, ${CHART.accent} 0 4px, transparent 4px 7px)"></i>Meta</span>` : '');
+      const series = [{ name: 'Pesagem', color: CHART.blue, points: raw, line: !showAvg }];
+      if (showAvg) series.push({ name: 'Média de 7 dias', color: CHART.accent, points: avg, dots: false });
+      lineChart(container, {
+        series,
+        target: targetKg ? { y: targetKg, label: `meta ${formatKg(targetKg)}` } : null,
+        unit: '',
+        ariaLabel: 'Evolução do peso',
+        tooltip: pt => {
+          const a = avg.find(o => +o.x === +pt.x);
+          return `${formatDateBR(pt.x)}<br><strong>${formatNumberBR(pt.y, 1)} kg</strong>${a && a.n > 1 ? `<br>Média 7 dias: ${formatNumberBR(a.y, 1)} kg` : ''}`;
+        }
       });
-
-      let pathD = `M ${coords[0].x} ${coords[0].y}`;
-      for (let i = 1; i < coords.length; i++) {
-        pathD += ` L ${coords[i].x} ${coords[i].y}`;
-      }
-
-      const targetY = targetKg ? padTop + chartH - ((targetKg - minW) / wRange) * chartH : null;
-
-      let circlesHtml = coords.map(c => `
-        <circle cx="${c.x}" cy="${c.y}" r="4" fill="#3b82f6" stroke="#090d16" stroke-width="2"/>
-        <text x="${c.x}" y="${c.y - 7}" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">${formatKg(c.weight)}</text>
-        <text x="${c.x}" y="${padTop + chartH + 18}" text-anchor="middle" font-size="8.5" fill="#94a3b8">${formatDateBR(c.date).slice(0, 5)}</text>
-      `).join('');
-
-      container.innerHTML = `
-        <svg viewBox="0 0 ${width} ${height}" class="svg-chart">
-          ${targetKg ? `
-          <line x1="${padLeft}" y1="${targetY}" x2="${width - padRight}" y2="${targetY}" stroke="#10b981" stroke-width="2" stroke-dasharray="4"/>
-          <text x="${width - padRight}" y="${targetY - 5}" text-anchor="end" font-size="9" font-weight="700" fill="#34d399">Meta: ${formatKg(targetKg)}kg</text>` : ''}
-
-          <!-- History Line -->
-          <path d="${pathD}" fill="none" stroke="#3b82f6" stroke-width="3" stroke-linecap="round"/>
-          ${circlesHtml}
-        </svg>
-      `;
     }
 
     function renderMeasuresList() {
